@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo 'var Languages = {'
+find lang -type f -name '*.json' -print | while read filename
+do
+	language=`basename "$filename" .json`
+	echo -ne "\t\"$language\": "
+	cat "$filename" | tr -d '\n\t'
+	echo ','
+done
+echo '};'
+echo 'Languages.current = Languages.en;'
+echo 'function T(item) { return Languages.current[item] || Languages.en[item]; }'
