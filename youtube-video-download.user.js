@@ -14,7 +14,7 @@
 
  function script()
  {
-  var version = 4.0, hash = "c1502f1";
+  var version = 4.0, hash = "397b4c8";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -87,7 +87,7 @@ function decodeURIPlus(str)
  return decodeURIComponent(str.replace(/\+/g, " "));
 }
 
-// decodeURIPlus(str) - Encode a URI component, including conversion from ' '
+// encodeURIPlus(str) - Encode a URI component, including conversion from ' '
 // to '+'
 function encodeURIPlus(str)
 {
@@ -491,6 +491,12 @@ var Interface = (function() {
       mainLink = document.createElement("a");
   itemGroup.style.position = "relative";
   itemGroup.style.minWidth = streams.length * 64 + 48 + "px";
+  itemGroup.addEventListener("mouseover", function() {
+   itemGroup.style.backgroundColor = "rgba(0, 0, 0, 0.05)";
+  }, false);
+  itemGroup.addEventListener("mouseout", function() {
+   itemGroup.style.backgroundColor = "";
+  }, false);
   size.className = "yt-uix-button-menu-item";
   size.style.textAlign = "right";
   size.style.width = "55px";
@@ -504,6 +510,10 @@ var Interface = (function() {
   mainLink.style.display = "block";
   mainLink.style.paddingLeft = "55px";
   mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
+  mainLink.addEventListener("contextmenu", function(e) {
+   // Prevent right-click closing the menu in Chrome
+   e.stopPropagation();
+  }, false);
   size.appendChild(document.createTextNode(streams[0].height + "p\u00a0"));
   mainLink.appendChild(size);
   mainLink.appendChild(document.createTextNode((streams[0].stereo3d ? "3D " : "") + streams[0].container));
@@ -520,6 +530,10 @@ var Interface = (function() {
    subLink.style.width = "53px";
    subLink.style.paddingLeft = subLink.style.paddingRight = "5px";
    subLink.style.borderLeft = "1px solid #DDD";
+   subLink.addEventListener("contextmenu", function(e) {
+    // Prevent right-click closing the menu in Chrome
+    e.stopPropagation();
+   }, false);
    subLink.appendChild(document.createTextNode((streams[i].stereo3d ? "3D " : "") + streams[i].container));
    itemGroup.appendChild(subLink);
   }

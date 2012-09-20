@@ -87,7 +87,7 @@ function decodeURIPlus(str)
 	return decodeURIComponent(str.replace(/\+/g, " "));
 }
 
-// decodeURIPlus(str) - Encode a URI component, including conversion from ' '
+// encodeURIPlus(str) - Encode a URI component, including conversion from ' '
 // to '+'
 function encodeURIPlus(str)
 {
