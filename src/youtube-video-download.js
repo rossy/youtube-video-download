@@ -31,13 +31,16 @@
 
 			xhr.open("HEAD", data.href, true);
 			xhr.onreadystatechange = function(e) {
-				if (xhr.readyState >= 2 && !set)
+				if (xhr.readyState >= 2)
 				{
-					set = true;
+					if (!set)
+					{
+						set = true;
 
-					var length = xhr.getResponseHeader("Content-length");
-					var target = document.getElementById(data.target);
-					target.setAttribute("title", target.getAttribute("title") + ", " + formatSize(Number(length)));
+						var length = xhr.getResponseHeader("Content-length");
+						var target = document.getElementById(data.target);
+						target.setAttribute("title", target.getAttribute("title") + ", " + formatSize(Number(length)));
+					}
 
 					xhr.abort();
 				}
