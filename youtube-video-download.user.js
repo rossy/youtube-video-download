@@ -5,16 +5,50 @@
 // @version        4.0
 // @author         rossy
 // @license        MIT License
+// @grant          none
 // @include        http://*.youtube.com/watch?*
 // @include        https://*.youtube.com/watch?*
+// @include        http://*.c.youtube.com/videoplayback?*
 // ==/UserScript==
 
 (function() {
  "use strict";
 
+ function formatSize(bytes)
+ {
+  if (bytes < 1048576)
+   return (bytes / 1024).toFixed(1) + " KiB";
+  else
+   return (bytes / 1048576).toFixed(1) + " MiB";
+ }
+
+ document.addEventListener("ytd-update-link", function(event) {
+  if (window.chrome)
+  {
+   var xhr = new XMLHttpRequest();
+   var data = JSON.parse(event.data);
+   var set = false;
+
+   xhr.open("HEAD", data.href, true);
+   xhr.onreadystatechange = function(e) {
+    if (xhr.readyState >= 2 && !set)
+    {
+     set = true;
+
+     var length = xhr.getResponseHeader("Content-length");
+     var target = document.getElementById(data.target);
+     target.setAttribute("title", target.getAttribute("title") + ", " + formatSize(Number(length)));
+
+     xhr.abort();
+    }
+   };
+   xhr.send(null);
+  }
+ }, false);
+
  function script()
  {
-  var version = 4.0, hash = "397b4c8";
+  var version = 4.0, hash = "211f2e9";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -74,63 +108,49 @@ function equi(on)
  for (var prop in obj)
   if (has(obj, prop))
    ret.push(obj[prop]);
-
  return ret;
 }
-
 // -- URI tools --
-
 // decodeURIPlus(str) - Decode a URI component, including conversion from '+'
 // to ' '
 function decodeURIPlus(str)
 {
  return decodeURIComponent(str.replace(/\+/g, " "));
 }
-
 // encodeURIPlus(str) - Encode a URI component, including conversion from ' '
 // to '+'
 function encodeURIPlus(str)
 {
- return encodeURIComponent(str).replace(/ /g, "+");
+ return encodeURIComponent(str).replace(/ /g, "%20");
 }
-
 // decodeQuery(query) - Convert a query string to an object
 function decodeQuery(query)
 {
  var obj = {};
-
  query.split("&").forEach(function(str) {
   var m = str.match(/^([^=]*)=(.*)$/);
-
   if (m)
    obj[decodeURIPlus(m[1])] = decodeURIPlus(m[2]);
   else
    obj[decodeURIPlus(str)] = "";
  });
-
  return obj;
 }
-
 // encodeQuery(query) - Convert a query string back into a URI
 function encodeQuery(query)
 {
  var components = [];
-
  for (var name in query)
   if (has(query, name))
    components.push(encodeURIPlus(name) + "=" + encodeURIPlus(query[name]));
-
  return components.join("&");
 }
-
 // URI(uri) - Convert a URI to a mutable object
 function URI(uri)
 {
  if (!(this instanceof URI))
   return new URI(uri);
-
  var m = uri.match(/([^\/]+)\/\/([^\/]+)([^?]*)(?:\?(.+))?/);
-
  if (m)
  {
   this.protocol = m[1];
@@ -147,36 +167,26 @@ function URI(uri)
 URI.prototype.toString = function() {
  if (this.href)
   return this.href;
-
  var encq = this.query && encodeQuery(this.query);
-
  return (this.protocol || "http") + "//" + this.host + this.pathname + (encq ? "?" + encq : "");
 };
-
 // -- Function tools --
-
 function identity(a) { return a; }
-
 // runWith - Run JavaScript code with an object's properties as local variables
 function runWith(str, obj)
 {
  var names = [],
      values = [];
-
  for (var name in obj)
   if (has(obj, name))
   {
    names.push(name);
    values.push(obj[name]);
   }
-
  var func = Function.apply(null, names.concat(str));
-
  return func.apply(null, values);
 }
-
 // -- String tools --
-
 // format(str, obj) - Formats a string with a syntax similar to Python template
 // strings, except the identifiers are executed as JavaScript code.
 function format(str, obj)
@@ -190,13 +200,11 @@ function format(str, obj)
   }
  });
 }
-
 // trim(str) - Trims whitespace from the start and end of the string.
 function trim(str)
 {
  return str.replace(/^\s+/, "").replace(/\s+$/, "");
 }
-
 // formatFileName(str) - Formats a file name (sans extension) to obey certain
 // restrictions on certain platforms. Makes room for a 4 character extension,
 // ie. ".webm".
@@ -283,6 +291,7 @@ var StreamMap = (function() {
   getStreams: getStreams,
   getURL: getURL,
   sortFunc: sortFunc,
+  getExtension: getExtension,
  };
  function containerToNum(container)
  {
@@ -291,7 +300,7 @@ var StreamMap = (function() {
    "FLV": 2,
    "WebM": 3,
    "3GPP": 4,
-  }[container] || 0;
+  }[container] || 5;
  }
  // sortFunc(a, b) - Sort streams from best to worst
  function sortFunc(a, b)
@@ -416,16 +425,26 @@ var StreamMap = (function() {
   return streams.map(processStream);
  }
  // getURL(stream) - Get a URL from a stream
- function getURL(stream)
+ function getURL(stream, title)
  {
   if (stream.url)
   {
    var uri = new URI(stream.url);
    if (!uri.query.signature && stream.sig)
     uri.query.signature = stream.sig;
-   uri.query.title = formatFileName(format("${author} - ${title}", merge(stream, VideoInfo)));
+   if (title)
+    uri.query.title = formatFileName(title);
    return uri.toString();
   }
+ }
+ function getExtension(stream)
+ {
+  return {
+   "MP4": ".mp4",
+   "WebM": ".webm",
+   "3GPP": ".3gp",
+   "FLV": ".flv",
+  }[stream.container] || "";
  }
  return self;
 })();
@@ -449,6 +468,7 @@ var Interface = (function() {
    return !stream.height || !stream.container;
   } },
  ];
+ var nextId = 0;
  // createDlButton() - Creates the instant download button
  function createDlButton()
  {
@@ -483,12 +503,25 @@ var Interface = (function() {
   elem.style.display = "none";
   return elem;
  }
+ function formatTitle(stream)
+ {
+  return (stream.vcodec ? stream.vcodec + "/" + stream.acodec : "") +
+   (stream.vprofile ? " (" + stream.vprofile + (stream.level ? "@L" + stream.level.toFixed(1) : "") + ")" : "");
+ }
+ function updateLink(href, target)
+ {
+  var data = { "href": href, target: target };
+  var event = document.createEvent("MessageEvent");
+  event.initMessageEvent("ytd-update-link", true, true, JSON.stringify(data), document.location.origin, "", window);
+  document.dispatchEvent(event);
+ }
  // createMenuItemGroup() - Creates a sub-group for a set of related streams
  function createMenuItemGroup(streams)
  {
   var itemGroup = document.createElement("div"),
       size = document.createElement("div"),
-      mainLink = document.createElement("a");
+      mainLink = document.createElement("a"),
+      mainId = nextId ++;
   itemGroup.style.position = "relative";
   itemGroup.style.minWidth = streams.length * 64 + 48 + "px";
   itemGroup.addEventListener("mouseover", function() {
@@ -505,8 +538,13 @@ var Interface = (function() {
   size.style.top = "0px";
   size.style.paddingLeft = size.style.paddingRight = "0px";
   size.style.color = "inherit";
+  var mainTitle = formatFileName(format("${author} - ${title}", merge(streams[0], VideoInfo)));
   mainLink.className = "yt-uix-button-menu-item";
-  mainLink.setAttribute("href", StreamMap.getURL(streams[0]));
+  mainLink.setAttribute("id", "ytd-" + mainId);
+  mainLink.setAttribute("href", StreamMap.getURL(streams[0], mainTitle));
+  mainLink.setAttribute("download", mainTitle + StreamMap.getExtension(streams[0]));
+  mainLink.setAttribute("title", formatTitle(streams[0]));
+  updateLink(StreamMap.getURL(streams[0]), "ytd-" + mainId);
   mainLink.style.display = "block";
   mainLink.style.paddingLeft = "55px";
   mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
@@ -520,9 +558,15 @@ var Interface = (function() {
   itemGroup.appendChild(mainLink);
   for (var i = 1, max = streams.length; i < max; i ++)
   {
-   var subLink = document.createElement("a");
+   var subLink = document.createElement("a"),
+       subTitle = formatFileName(format("${author} - ${title}", merge(streams[i], VideoInfo))),
+       subId = nextId ++;
    subLink.className = "yt-uix-button-menu-item";
-   subLink.setAttribute("href", StreamMap.getURL(streams[i]));
+   subLink.setAttribute("id", "ytd-" + subId);
+   subLink.setAttribute("href", StreamMap.getURL(streams[i], subTitle));
+   subLink.setAttribute("download", subTitle + StreamMap.getExtension(streams[i]));
+   subLink.setAttribute("title", formatTitle(streams[i]));
+   updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
    subLink.style.display = "block";
    subLink.style.position = "absolute";
    subLink.style.right = (streams.length - i - 1) * 64 + "px";
@@ -568,10 +612,12 @@ var Interface = (function() {
  // setDlButton(stream) - Sets the default stream to download
  function setDlButton(stream)
  {
+  var title = formatFileName(format("${author} - ${title}", merge(stream, VideoInfo)));
   self.dlButton.getElementsByTagName("button")[0]
    .setAttribute("title", T("download-button-tip") +
    " (" + stream.height + "p " + stream.container + ")");
-  self.dlButton.setAttribute("href", StreamMap.getURL(stream));
+  self.dlButton.setAttribute("href", StreamMap.getURL(stream, title));
+  self.dlButton.setAttribute("download", title + StreamMap.getExtension(stream));
  }
  // update(streams) - Adds streams to the menu
  function update(streams)

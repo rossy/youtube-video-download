@@ -7,6 +7,7 @@ var StreamMap = (function() {
 		getStreams: getStreams,
 		getURL: getURL,
 		sortFunc: sortFunc,
+		getExtension: getExtension,
 	};
 
 	function containerToNum(container)
@@ -16,7 +17,7 @@ var StreamMap = (function() {
 			"FLV": 2,
 			"WebM": 3,
 			"3GPP": 4,
-		}[container] || 0;
+		}[container] || 5;
 	}
 
 	// sortFunc(a, b) - Sort streams from best to worst
@@ -161,7 +162,7 @@ var StreamMap = (function() {
 	}
 
 	// getURL(stream) - Get a URL from a stream
-	function getURL(stream)
+	function getURL(stream, title)
 	{
 		if (stream.url)
 		{
@@ -170,10 +171,21 @@ var StreamMap = (function() {
 			if (!uri.query.signature && stream.sig)
 				uri.query.signature = stream.sig;
 
-			uri.query.title = formatFileName(format("${author} - ${title}", merge(stream, VideoInfo)));
+			if (title)
+				uri.query.title = formatFileName(title);
 
 			return uri.toString();
 		}
+	}
+
+	function getExtension(stream)
+	{
+		return {
+			"MP4": ".mp4",
+			"WebM": ".webm",
+			"3GPP": ".3gp",
+			"FLV": ".flv",
+		}[stream.container] || "";
 	}
 
 	return self;

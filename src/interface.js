@@ -23,6 +23,8 @@ var Interface = (function() {
 		} },
 	];
 
+	var nextId = 0;
+
 	// createDlButton() - Creates the instant download button
 	function createDlButton()
 	{
@@ -70,12 +72,27 @@ var Interface = (function() {
 		return elem;
 	}
 
+	function formatTitle(stream)
+	{
+		return (stream.vcodec ? stream.vcodec + "/" + stream.acodec : "") +
+			(stream.vprofile ? " (" + stream.vprofile + (stream.level ? "@L" + stream.level.toFixed(1) : "") + ")" : "");
+	}
+
+	function updateLink(href, target)
+	{
+		var data = { "href": href, target: target };
+		var event = document.createEvent("MessageEvent");
+		event.initMessageEvent("ytd-update-link", true, true, JSON.stringify(data), document.location.origin, "", window);
+		document.dispatchEvent(event);
+	}
+
 	// createMenuItemGroup() - Creates a sub-group for a set of related streams
 	function createMenuItemGroup(streams)
 	{
 		var itemGroup = document.createElement("div"),
 		    size = document.createElement("div"),
-		    mainLink = document.createElement("a");
+		    mainLink = document.createElement("a"),
+		    mainId = nextId ++;
 
 		itemGroup.style.position = "relative";
 		itemGroup.style.minWidth = streams.length * 64 + 48 + "px";
@@ -96,8 +113,15 @@ var Interface = (function() {
 		size.style.paddingLeft = size.style.paddingRight = "0px";
 		size.style.color = "inherit";
 
+		var mainTitle = formatFileName(format("${author} - ${title}", merge(streams[0], VideoInfo)));
+
 		mainLink.className = "yt-uix-button-menu-item";
-		mainLink.setAttribute("href", StreamMap.getURL(streams[0]));
+		mainLink.setAttribute("id", "ytd-" + mainId);
+		mainLink.setAttribute("href", StreamMap.getURL(streams[0], mainTitle));
+		mainLink.setAttribute("download", mainTitle + StreamMap.getExtension(streams[0]));
+		mainLink.setAttribute("title", formatTitle(streams[0]));
+		updateLink(StreamMap.getURL(streams[0]), "ytd-" + mainId);
+
 		mainLink.style.display = "block";
 		mainLink.style.paddingLeft = "55px";
 		mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
@@ -114,10 +138,17 @@ var Interface = (function() {
 
 		for (var i = 1, max = streams.length; i < max; i ++)
 		{
-			var subLink = document.createElement("a");
+			var subLink = document.createElement("a"),
+			    subTitle = formatFileName(format("${author} - ${title}", merge(streams[i], VideoInfo))),
+			    subId = nextId ++;
 
 			subLink.className = "yt-uix-button-menu-item";
-			subLink.setAttribute("href", StreamMap.getURL(streams[i]));
+			subLink.setAttribute("id", "ytd-" + subId);
+			subLink.setAttribute("href", StreamMap.getURL(streams[i], subTitle));
+			subLink.setAttribute("download", subTitle + StreamMap.getExtension(streams[i]));
+			subLink.setAttribute("title", formatTitle(streams[i]));
+			updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
+
 			subLink.style.display = "block";
 			subLink.style.position = "absolute";
 			subLink.style.right = (streams.length - i - 1) * 64 + "px";
@@ -173,11 +204,14 @@ var Interface = (function() {
 	// setDlButton(stream) - Sets the default stream to download
 	function setDlButton(stream)
 	{
+		var title = formatFileName(format("${author} - ${title}", merge(stream, VideoInfo)));
+
 		self.dlButton.getElementsByTagName("button")[0]
 			.setAttribute("title", T("download-button-tip") +
 			" (" + stream.height + "p " + stream.container + ")");
 
-		self.dlButton.setAttribute("href", StreamMap.getURL(stream));
+		self.dlButton.setAttribute("href", StreamMap.getURL(stream, title));
+		self.dlButton.setAttribute("download", title + StreamMap.getExtension(stream));
 	}
 
 	// update(streams) - Adds streams to the menu

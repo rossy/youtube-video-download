@@ -91,7 +91,7 @@ function decodeURIPlus(str)
 // to '+'
 function encodeURIPlus(str)
 {
-	return encodeURIComponent(str).replace(/ /g, "+");
+	return encodeURIComponent(str).replace(/ /g, "%20");
 }
 
 // decodeQuery(query) - Convert a query string to an object
