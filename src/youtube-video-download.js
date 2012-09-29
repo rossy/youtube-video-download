@@ -6,8 +6,9 @@
 // @author         rossy
 // @license        MIT License
 // @grant          none
-// @include        http://*.youtube.com/watch?*
-// @include        https://*.youtube.com/watch?*
+// @updateURL      https://github.com/rossy2401/youtube-video-download/raw/master/youtube-video-download.user.js
+// @include        http://www.youtube.com/watch?*
+// @include        https://www.youtube.com/watch?*
 // @include        http://*.c.youtube.com/videoplayback?*
 // ==/UserScript==
 

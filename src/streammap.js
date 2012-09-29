@@ -197,6 +197,8 @@ var StreamMap = (function() {
 		}
 	}
 
+	// getExtension(stream) - Get the file extension associated with the
+	// container type of the specified stream
 	function getExtension(stream)
 	{
 		return {

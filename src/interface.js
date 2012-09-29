@@ -6,6 +6,7 @@ var Interface = (function() {
 	var self = {
 		init: init,
 		update: update,
+		notifyUpdate: notifyUpdate,
 	};
 
 	var groups = [
@@ -23,7 +24,115 @@ var Interface = (function() {
 		} },
 	];
 
+	var links = [];
+
 	var nextId = 0;
+
+	// createOptionsButton() - Creates the button that opens the options menu
+	function createOptionsButton()
+	{
+		var elem = document.createElement("a"),
+			optionsOpen = false;
+
+		elem.setAttribute("href", "javascript:;");
+		elem.style.position = "absolute";
+		elem.style.right = elem.style.top = "8px";
+		elem.innerHTML = T("button-options");
+
+		elem.addEventListener("click", function() {
+			optionsOpen = !optionsOpen;
+
+			self.options.style.display = optionsOpen ? "" : "none";
+			elem.innerHTML = optionsOpen ? T("button-options-close") : T("button-options");
+		});
+
+		return elem
+	}
+
+	// createHeader(text) - Creates a menu section header
+	function createHeader(text)
+	{
+		var elem = document.createElement("div");
+
+		elem.style.padding = "2px 13px";
+		elem.style.fontWeight = "bold";
+		elem.style.borderBottom = "1px solid #999";
+
+		elem.appendChild(document.createTextNode(text));
+
+		return elem;
+	}
+
+	// createCheckbox(text) - Creates a YouTube uix checkbox
+	function createCheckbox(text, checked, callback)
+	{
+		var label = document.createElement("label"),
+		    span = document.createElement("span"),
+		    checkbox = document.createElement("input"),
+		    elem = document.createElement("span");
+
+		span.className = "yt-uix-form-input-checkbox-container" + (checked ? "  checked" : "");
+		span.style.margin = "6px 6px 6px 13px";
+
+		checkbox.className = "yt-uix-form-input-checkbox";
+		checkbox.setAttribute("type", "checkbox");
+		checkbox.checked = !!checked;
+
+		checkbox.addEventListener("change", function() {
+			callback(checkbox.checked);
+		}, true);
+
+		elem.className = "yt-uix-form-input-checkbox-element";
+
+		span.appendChild(checkbox);
+		span.appendChild(elem);
+
+		label.style.display = "block";
+		label.appendChild(span);
+		label.appendChild(document.createTextNode(text));
+
+		return label;
+	}
+
+	// createOptions() - Creates the options menu
+	function createOptions()
+	{
+		var elem = document.createElement("div");
+
+		elem.appendChild(createHeader(T("group-options")));
+
+		// Determine whether to check GitHub for updates every two days
+		elem.appendChild(createCheckbox(T("option-check"), localStorage["ytd-check-updates"] == "true", function (checked) {
+			localStorage["ytd-check-updates"] = checked;
+		}));
+
+		// Add box for setting the format string
+		var formatLabel = document.createElement("label"),
+		    formatBox = document.createElement("input");
+
+		formatBox.className = "yt-uix-form-input-text";
+		formatBox.value = localStorage["ytd-title-format"];
+		formatBox.setAttribute("id", "ytd-format-box");
+		formatBox.style.display = "block";
+		formatBox.style.margin = "6px 13px";
+		formatBox.style.width = "70%";
+		formatBox.addEventListener("input", function() {
+			localStorage["ytd-title-format"] = formatBox.value;
+			updateLinks();
+		});
+
+		formatLabel.setAttribute("for", "ytd-format-box");
+		formatLabel.style.display = "block";
+		formatLabel.style.margin = "6px";
+		formatLabel.appendChild(document.createTextNode(T("option-format")));
+
+		elem.appendChild(formatLabel);
+		elem.appendChild(formatBox);
+
+		elem.style.display = "none";
+
+		return elem;
+	}
 
 	// createDlButton() - Creates the instant download button
 	function createDlButton()
@@ -89,6 +198,7 @@ var Interface = (function() {
 	// createMenuItemGroup() - Creates a sub-group for a set of related streams
 	function createMenuItemGroup(streams)
 	{
+		// Create the button group and the size label ("360p", "480p", etc.)
 		var itemGroup = document.createElement("div"),
 		    size = document.createElement("div"),
 		    mainLink = document.createElement("a"),
@@ -113,13 +223,12 @@ var Interface = (function() {
 		size.style.paddingLeft = size.style.paddingRight = "0px";
 		size.style.color = "inherit";
 
-		var mainTitle = formatFileName(format("${author} - ${title}", merge(streams[0], VideoInfo)));
-
+		// Create the main video link
 		mainLink.className = "yt-uix-button-menu-item";
 		mainLink.setAttribute("id", "ytd-" + mainId);
-		mainLink.setAttribute("href", StreamMap.getURL(streams[0], mainTitle));
-		mainLink.setAttribute("download", mainTitle + StreamMap.getExtension(streams[0]));
 		mainLink.setAttribute("title", formatTitle(streams[0]));
+
+		links.push({ stream: streams[0], anchor: mainLink });
 		updateLink(StreamMap.getURL(streams[0]), "ytd-" + mainId);
 
 		mainLink.style.display = "block";
@@ -131,22 +240,23 @@ var Interface = (function() {
 			e.stopPropagation();
 		}, false);
 
+		// Append the main link to the button group
 		size.appendChild(document.createTextNode(streams[0].height + "p\u00a0"));
 		mainLink.appendChild(size);
 		mainLink.appendChild(document.createTextNode((streams[0].stereo3d ? "3D " : "") + streams[0].container));
 		itemGroup.appendChild(mainLink);
 
+		// Create each sublink
 		for (var i = 1, max = streams.length; i < max; i ++)
 		{
 			var subLink = document.createElement("a"),
-			    subTitle = formatFileName(format("${author} - ${title}", merge(streams[i], VideoInfo))),
 			    subId = nextId ++;
 
 			subLink.className = "yt-uix-button-menu-item";
 			subLink.setAttribute("id", "ytd-" + subId);
-			subLink.setAttribute("href", StreamMap.getURL(streams[i], subTitle));
-			subLink.setAttribute("download", subTitle + StreamMap.getExtension(streams[i]));
 			subLink.setAttribute("title", formatTitle(streams[i]));
+
+			links.push({ stream: streams[i], anchor: subLink });
 			updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
 
 			subLink.style.display = "block";
@@ -162,6 +272,7 @@ var Interface = (function() {
 				e.stopPropagation();
 			}, false);
 
+			// Append the sublink to the button group
 			subLink.appendChild(document.createTextNode((streams[i].stereo3d ? "3D " : "") + streams[i].container));
 			itemGroup.appendChild(subLink);
 		}
@@ -174,7 +285,7 @@ var Interface = (function() {
 	{
 		var elem = document.createElement("div");
 
-		elem.innerHTML = "<div style=\"padding: 2px 13px; font-weight: bold; border-bottom: 1px solid #999;\">" + title + "</div>";
+		elem.appendChild(createHeader(title));
 
 		if (flat)
 			for (var i = 0, max = streams.length; i < max; i ++)
@@ -183,6 +294,7 @@ var Interface = (function() {
 		{
 			var resolutions = [],
 			    resGroups = {};
+
 			for (var i = 0, max = streams.length; i < max; i ++)
 			{
 				if (!resGroups[streams[i].height])
@@ -201,17 +313,45 @@ var Interface = (function() {
 		return elem;
 	}
 
+	// createUpdate() - Creates the updates button
+	function createUpdate()
+	{
+		var elem = document.createElement("div");
+
+		elem.appendChild(createHeader(T("group-update")));
+
+		var a = document.createElement("a");
+
+		a.className = "yt-uix-button-menu-item";
+		a.setAttribute("href", "https://github.com/rossy2401/youtube-video-download/raw/master/youtube-video-download.user.js");
+
+		a.appendChild(document.createTextNode(T("button-update")));
+		elem.appendChild(a);
+
+		return elem;
+	}
+
 	// setDlButton(stream) - Sets the default stream to download
 	function setDlButton(stream)
 	{
-		var title = formatFileName(format("${author} - ${title}", merge(stream, VideoInfo)));
-
 		self.dlButton.getElementsByTagName("button")[0]
 			.setAttribute("title", T("download-button-tip") +
 			" (" + stream.height + "p " + stream.container + ")");
 
-		self.dlButton.setAttribute("href", StreamMap.getURL(stream, title));
-		self.dlButton.setAttribute("download", title + StreamMap.getExtension(stream));
+		links.push({ stream: stream, anchor: self.dlButton });
+	}
+
+	// updateLinks() - Set the href and download attributes of all video
+	// download links
+	function updateLinks()
+	{
+		for (var i = 0, max = links.length; i < max; i ++)
+		{
+			var title = formatFileName(format(localStorage["ytd-title-format"], merge(links[i].stream, VideoInfo)));
+
+			links[i].anchor.setAttribute("download", title + StreamMap.getExtension(links[i].stream));
+			links[i].anchor.setAttribute("href", StreamMap.getURL(links[i].stream, title));
+		}
 	}
 
 	// update(streams) - Adds streams to the menu
@@ -220,6 +360,7 @@ var Interface = (function() {
 		streams = streams
 			.filter(function(obj) { return obj.url; })
 			.sort(StreamMap.sortFunc);
+		links = [];
 
 		var mp4streams = streams.filter(function(obj) { return obj.container == "MP4"; });
 
@@ -242,8 +383,10 @@ var Interface = (function() {
 			var groupStreams = streams.filter(groups[i].predicate);
 
 			if (groupStreams.length)
-				self.menu.appendChild(createGroup(groups[i].title, groups[i].flat, groupStreams));
+				self.downloads.appendChild(createGroup(groups[i].title, groups[i].flat, groupStreams));
 		}
+
+		updateLinks();
 	}
 
 	// init() - Initalises the user interface
@@ -257,7 +400,11 @@ var Interface = (function() {
 
 		self.dlButton = createDlButton();
 		self.menuButton = createMenuButton();
+
 		self.menu = createMenu();
+		self.menu.appendChild(createOptionsButton());
+		self.menu.appendChild(self.options = createOptions());
+		self.menu.appendChild(self.downloads = document.createElement("div"));
 		self.menuButton.appendChild(self.menu);
 
 		// If the flag button is disabled, all the controls should be disabled
@@ -272,6 +419,11 @@ var Interface = (function() {
 
 		// Also insert some whitespace
 		watchFlag.parentNode.insertBefore(document.createTextNode(" "), watchFlag);
+	}
+
+	function notifyUpdate()
+	{
+		self.menu.appendChild(createUpdate());
 	}
 
 	return self;
