@@ -3,12 +3,6 @@
 #import "streammap.js"
 #import "update.js"
 
-function setLanguage(language)
-{
-	if (Languages[language])
-		Languages.current = Languages[language];
-}
-
 function main()
 {
 	if (localStorage["ytd-check-updates"] === undefined)
@@ -16,8 +10,6 @@ function main()
 
 	if (localStorage["ytd-title-format"] === undefined)
 		localStorage["ytd-title-format"] = "${title}";
-
-	setLanguage(document.documentElement.getAttribute("lang"));
 
 	VideoInfo.init();
 	Interface.init();

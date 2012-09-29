@@ -1,0 +1,24 @@
+{
+	"credit0-name": "janwatzek",
+	"credit0-url": "http://userscripts.org/users/janwatzek",
+
+	"download-button-tip": "Uložit video na pevný disk",
+	"download-button-text": "Stáhnout",
+	"menu-button-tip": "Vyberte formát ke stažení",
+
+	"group-options": "Nastavení",
+	"group-high-definition": "Vysoké rozlišení",
+	"group-standard-definition": "Standardní rozlišení",
+	"group-mobile": "Mobile",
+	"group-unknown": "Neznámý formát",
+	"group-update": "Nová verze skriptu YouTube Video Download je dostupná ke stažení!",
+
+	"option-check": "Kontrolovat aktualizace",
+	"option-format": "Formát názvu videa",
+
+	"button-options": "nastavení",
+	"button-options-close": "close",
+	"button-update": "Klikněte sem pro aktualizaci",
+
+	"error-no-downloads": "Žádné formáty nejsou dostupné ke stažení"
+}

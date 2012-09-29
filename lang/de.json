@@ -1,0 +1,24 @@
+{
+	"credit0-name": "QuHno",
+	"credit0-url": "http://userscripts.org/users/348658",
+
+	"download-button-tip": "Video auf der Festplatte speichern",
+	"download-button-text": "Download",
+	"menu-button-tip": "Download Format wählen",
+
+	"group-options": "Einstellungen",
+	"group-high-definition": "HD",
+	"group-standard-definition": "Standard Auflösung",
+	"group-mobile": "Mobile",
+	"group-unknown": "Unbekanntes Format",
+	"group-update": "Eine neue Version von YouTube Video Download steht zur Verfügung",
+
+	"option-check": "Auf neue Version überprüfen",
+	"option-format": "Titel Format",
+
+	"button-options": "einstellungen",
+	"button-options-close": "close",
+	"button-update": "Hier klicken um jetzt upzudaten",
+
+	"error-no-downloads": "Keine Download Formate vorhanden"
+}

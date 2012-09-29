@@ -9,5 +9,9 @@ do
 	echo ','
 done
 echo '};'
-echo 'Languages.current = Languages.en;'
 echo 'function T(item) { return Languages.current[item] || Languages.en[item]; }'
+
+echo 'if (Languages[document.documentElement.getAttribute("lang")])'
+echo 'Languages.current = Languages[document.documentElement.getAttribute("lang")];'
+echo 'else'
+echo 'Languages.current = Languages.en;'
