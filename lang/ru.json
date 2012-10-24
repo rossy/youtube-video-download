@@ -1,0 +1,24 @@
+{
+	"credit0-name": "Gandalf",
+	"credit0-url": "http://userscripts.org/users/73303",
+
+	"download-button-tip": "Сохранить на жесткий диск",
+	"download-button-text": "Скачать",
+	"menu-button-tip": "Выберите формат для загрузки",
+
+	"group-options": "Настройки",
+	"group-high-definition": "Высокое разрешение",
+	"group-standard-definition": "Стандартное разрешение",
+	"group-mobile": "Mobile",
+	"group-unknown": "Неизвестный формат",
+	"group-update": "Доступна новая версия YouTube Video Download",
+
+	"option-check": "Проверить обновления",
+	"option-format": "Формат заголовка",
+
+	"button-options": "настройки",
+	"button-options-close": "close",
+	"button-update": "Нажмите тут для обновления",
+
+	"error-no-downloads": "Нет загружаемых допустимых форматов"
+}

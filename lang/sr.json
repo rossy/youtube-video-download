@@ -1,0 +1,24 @@
+{
+	"credit0-name": "titanicus",
+	"credit0-url": "http://userscripts.org/users/26334",
+
+	"download-button-tip": "Сачувај видео на диск",
+	"download-button-text": "Преузми",
+	"menu-button-tip": "Изаберите формат видеа за преузимање",
+
+	"group-options": "Опције",
+	"group-high-definition": "Висока резолуција",
+	"group-standard-definition": "Стандардна резолуција",
+	"group-mobile": "Mobile",
+	"group-unknown": "Непознат формат",
+	"group-update": "Ново издање YouTube Видео Преузимача је доступно",
+
+	"option-check": "Провери надоградње",
+	"option-format": "Формат наслова",
+
+	"button-options": "опције",
+	"button-options-close": "close",
+	"button-update": "Кликните овде да ажурирате сада",
+
+	"error-no-downloads": "Нема доступних формата"
+}
