@@ -9,20 +9,7 @@ var Interface = (function() {
 		notifyUpdate: notifyUpdate,
 	};
 
-	var groups = [
-		{ title: T("group-high-definition"), predicate: function(stream) {
-			return stream.height && stream.container && stream.container != "3GPP" && stream.height > 576;
-		} },
-		{ title: T("group-standard-definition"), predicate: function(stream) {
-			return stream.height && stream.container && stream.container != "3GPP" && stream.height <= 576;
-		} },
-		{ title: T("group-mobile"), predicate: function(stream) {
-			return stream.height && stream.container && stream.container == "3GPP";
-		} },
-		{ title: T("group-unknown"), flat: true, predicate: function(stream) {
-			return !stream.height || !stream.container;
-		} },
-	];
+	var groups;
 
 	var links = [];
 
@@ -395,6 +382,21 @@ var Interface = (function() {
 		// Get the flag button from the actions menu
 		var watchFlag = document.getElementById("watch-flag"),
 		    buttonGroup = document.createElement("span");
+
+		groups = [
+			{ title: T("group-high-definition"), predicate: function(stream) {
+				return stream.height && stream.container && stream.container != "3GPP" && stream.height > 576;
+			} },
+			{ title: T("group-standard-definition"), predicate: function(stream) {
+				return stream.height && stream.container && stream.container != "3GPP" && stream.height <= 576;
+			} },
+			{ title: T("group-mobile"), predicate: function(stream) {
+				return stream.height && stream.container && stream.container == "3GPP";
+			} },
+			{ title: T("group-unknown"), flat: true, predicate: function(stream) {
+				return !stream.height || !stream.container;
+			} },
+		];
 
 		buttonGroup.className = "yt-uix-button-group";
 

@@ -52,7 +52,7 @@
 
  function script()
  {
-  var version = 4.0, hash = "6c583c9";
+  var version = 4.0, hash = "0a9e0af";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -301,7 +301,7 @@ var Languages = {
 };
 function T(item) { return Languages.current[item] || Languages.en[item]; }
 if (Languages[document.documentElement.getAttribute("lang")] && yt && yt._config)
-Languages.current = Languages[document.documentElement.getAttribute("lang") == "pt" ? (yt.config_.HL_LOCALE || document.documentElement.getAttribute("lang")) : document.documentElement.getAttribute("lang")];
+Languages.current = Languages[document.documentElement.getAttribute("lang")];
 else
 Languages.current = Languages.en;
 // StreamMap - Get and convert format maps
@@ -494,20 +494,7 @@ var Interface = (function() {
   update: update,
   notifyUpdate: notifyUpdate,
  };
- var groups = [
-  { title: T("group-high-definition"), predicate: function(stream) {
-   return stream.height && stream.container && stream.container != "3GPP" && stream.height > 576;
-  } },
-  { title: T("group-standard-definition"), predicate: function(stream) {
-   return stream.height && stream.container && stream.container != "3GPP" && stream.height <= 576;
-  } },
-  { title: T("group-mobile"), predicate: function(stream) {
-   return stream.height && stream.container && stream.container == "3GPP";
-  } },
-  { title: T("group-unknown"), flat: true, predicate: function(stream) {
-   return !stream.height || !stream.container;
-  } },
- ];
+ var groups;
  var links = [];
  var nextId = 0;
  // createOptionsButton() - Creates the button that opens the options menu
@@ -795,6 +782,20 @@ var Interface = (function() {
   // Get the flag button from the actions menu
   var watchFlag = document.getElementById("watch-flag"),
       buttonGroup = document.createElement("span");
+  groups = [
+   { title: T("group-high-definition"), predicate: function(stream) {
+    return stream.height && stream.container && stream.container != "3GPP" && stream.height > 576;
+   } },
+   { title: T("group-standard-definition"), predicate: function(stream) {
+    return stream.height && stream.container && stream.container != "3GPP" && stream.height <= 576;
+   } },
+   { title: T("group-mobile"), predicate: function(stream) {
+    return stream.height && stream.container && stream.container == "3GPP";
+   } },
+   { title: T("group-unknown"), flat: true, predicate: function(stream) {
+    return !stream.height || !stream.container;
+   } },
+  ];
   buttonGroup.className = "yt-uix-button-group";
   self.dlButton = createDlButton();
   self.menuButton = createMenuButton();
@@ -876,6 +877,8 @@ var Update = (function() {
 })();
 function main()
 {
+ if (yt.config_ && Languages[yt.config_.HL_LOCALE])
+  Languages.current = Languages[yt.config_.HL_LOCALE];
  if (localStorage["ytd-check-updates"] === undefined)
   localStorage["ytd-check-updates"] = true;
  if (localStorage["ytd-title-format"] === undefined)

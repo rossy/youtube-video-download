@@ -5,6 +5,9 @@
 
 function main()
 {
+	if (yt.config_ && Languages[yt.config_.HL_LOCALE])
+		Languages.current = Languages[yt.config_.HL_LOCALE];
+
 	if (localStorage["ytd-check-updates"] === undefined)
 		localStorage["ytd-check-updates"] = true;
 

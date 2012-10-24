@@ -15,6 +15,6 @@ var Languages = {
 };
 function T(item) { return Languages.current[item] || Languages.en[item]; }
 if (Languages[document.documentElement.getAttribute("lang")] && yt && yt._config)
-Languages.current = Languages[document.documentElement.getAttribute("lang") == "pt" ? (yt.config_.HL_LOCALE || document.documentElement.getAttribute("lang")) : document.documentElement.getAttribute("lang")];
+Languages.current = Languages[document.documentElement.getAttribute("lang")];
 else
 Languages.current = Languages.en;
