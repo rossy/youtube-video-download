@@ -1,0 +1,24 @@
+{
+	"credit0-name": "Kenterte",
+	"credit0-url": "http://userscripts.org/users/Kenterte",
+
+	"download-button-tip": "Videoyu Farklı Kaydet",
+	"download-button-text": "İndir",
+	"menu-button-tip": "Bir İndirme Formatı Seçin",
+
+	"group-options": "Ayarlar",
+	"group-high-definition": "Yüksek Çözünürlük",
+	"group-standard-definition": "Standart Çözünürlük",
+	"group-mobile": "Mobile",
+	"group-unknown": "Bilinmeyen Format",
+	"group-update": "YouTube Video Downloader'ın yeni bir versiyonu var",
+
+	"option-check": "Güncelleştirmeleri Kontrol Et",
+	"option-format": "Başlık Türü",
+
+	"button-options": "Ayarlar",
+	"button-options-close": "close",
+	"button-update": "Güncelleştirmek için tıklayınız",
+
+	"error-no-downloads": "Format Bulunamadı"
+}
