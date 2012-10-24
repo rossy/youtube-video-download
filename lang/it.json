@@ -1,0 +1,21 @@
+{
+	"credit0-name": "Kharg",
+	"credit0-url": "http://userscripts.org/users/kharg",
+
+	"download-button-tip": "Salva il video nell'HD",
+	"download-button-text": "Scarica",
+	"menu-button-tip": "Scegli un formato da scaricare",
+
+	"group-options": "Opzioni",
+	"group-high-definition": "Alta definizione",
+	"group-standard-definition": "Qualità standard",
+	"group-mobile": "Mobile",
+
+	"option-check": "Controlla la disponibilità di aggiornamenti",
+	"option-format": "Formato titolo",
+
+	"button-options": "opzioni",
+	"button-options-close": "close",
+
+	"error-no-downloads": "Nessun formato da scaricare disponibile"
+}

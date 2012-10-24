@@ -11,7 +11,7 @@ done
 echo '};'
 echo 'function T(item) { return Languages.current[item] || Languages.en[item]; }'
 
-echo 'if (Languages[document.documentElement.getAttribute("lang")])'
-echo 'Languages.current = Languages[document.documentElement.getAttribute("lang")];'
+echo 'if (Languages[document.documentElement.getAttribute("lang")] && yt && yt._config)'
+echo 'Languages.current = Languages[document.documentElement.getAttribute("lang") == "pt" ? (yt.config_.HL_LOCALE || document.documentElement.getAttribute("lang")) : document.documentElement.getAttribute("lang")];'
 echo 'else'
 echo 'Languages.current = Languages.en;'

@@ -1,0 +1,24 @@
+{
+	"credit0-name": "Gandalf",
+	"credit0-url": "http://userscripts.org/users/73303",
+
+	"download-button-tip": "Salvar vídeo para o disco",
+	"download-button-text": "Baixar",
+	"menu-button-tip": "Escolha um formato para baixar",
+
+	"group-options": "Opções",
+	"group-high-definition": "Definição alta",
+	"group-standard-definition": "Definição padrão",
+	"group-mobile": "Mobile",
+	"group-unknown": "Formato desconhecido",
+	"group-update": "Uma nova versão do Youtube Video Download está disponível",
+
+	"option-check": "Procurar por atualizações",
+	"option-format": "Formato do título",
+
+	"button-options": "opções",
+	"button-options-close": "close",
+	"button-update": "Clique aqui para atualizar agora",
+
+	"error-no-downloads": "Nenhum formato disponível para baixar"
+}

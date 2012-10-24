@@ -1,0 +1,21 @@
+{
+	"download-button-tip": "Zapisz film na twardym dysku",
+	"download-button-text": "Pobierz",
+	"menu-button-tip": "Wybierz format do pobrania",
+
+	"group-options": "Opcje",
+	"group-high-definition": "Wysoka rozdzielczość",
+	"group-standard-definition": "Standardowa rozdzielczość",
+	"group-mobile": "Mobile",
+	"group-unknown": "Nieznany format",
+	"group-update": "Nowa wersja YouTube Video Download jest dostępna",
+
+	"option-check": "Sprawdzaj aktualizacje",
+	"option-format": "Format tytułu",
+
+	"button-options": "opcje",
+	"button-options-close": "close",
+	"button-update": "Kliknij tutaj, aby zaktualizować",
+
+	"error-no-downloads": "Nie dostępne formaty"
+}

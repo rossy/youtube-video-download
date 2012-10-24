@@ -1,0 +1,24 @@
+{
+	"credit0-name": "jok-r",
+	"credit0-url": "http://userscripts.org/users/87056",
+
+	"download-button-tip": "Télécharger cette vidéo",
+	"download-button-text": "Télécharger",
+	"menu-button-tip": "Choisissez le format à télécharger",
+
+	"group-options": "Options",
+	"group-high-definition": "Haute définition",
+	"group-standard-definition": "Définition standard",
+	"group-mobile": "Mobile",
+	"group-unknown": "Format inconnu",
+	"group-update": "Une nouvelle version de YouTube Video Download est disponible",
+
+	"option-check": "Vérifier les mises à jour",
+	"option-format": "Format du nom de fichier",
+
+	"button-options": "options",
+	"button-options-close": "close",
+	"button-update": "Cliquer ici pour mettre à jour maintenant",
+
+	"error-no-downloads": "Pas de formats de téléchargement disponible"
+}

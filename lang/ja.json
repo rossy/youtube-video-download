@@ -1,0 +1,24 @@
+{
+	"credit0-name": "K-M",
+	"credit0-url": "http://userscripts.org/users/184613",
+
+	"download-button-tip": "ハードディスクにビデオを保存",
+	"download-button-text": "ダウンロード",
+	"menu-button-tip": "ダウンロードする形式を選択",
+
+	"group-options": "オプション",
+	"group-high-definition": "高画質",
+	"group-standard-definition": "普通の画質",
+	"group-mobile": "Mobile",
+	"group-unknown": "不明な形式",
+	"group-update": "YouTube Video Downloadの更新があります",
+
+	"option-check": "更新を確認",
+	"option-format": "タイトルの形式",
+
+	"button-options": "オプション",
+	"button-options-close": "close",
+	"button-update": "ここをクリックすると更新します",
+
+	"error-no-downloads": "ダウンロードできません"
+}
