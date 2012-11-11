@@ -23,6 +23,9 @@ var VideoInfo = (function() {
 				return document.getElementById("eow-title").getAttribute("title");
 			},
 			function() {
+				return document.querySelector("#watch-headline-title > span").getAttribute("title");
+			},
+			function() {
 				return document.title.match(/^(.*) - YouTube$/)[1];
 			}
 		);
@@ -30,6 +33,9 @@ var VideoInfo = (function() {
 		self.author = Try.all(
 			function() {
 				return document.querySelector("#watch-uploader-info > .author").textContent;
+			},
+			function() {
+				return document.querySelector("#watch7-user-header > .yt-user-name").textContent;
 			},
 			function() {
 				return document.querySelector("#watch-userbanner").getAttribute("title");

@@ -52,7 +52,7 @@
 
  function script()
  {
-  var version = 4.0, hash = "0a9e0af";
+  var version = 4.0, hash = "d5c36e8";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -267,12 +267,18 @@ var VideoInfo = (function() {
     return document.getElementById("eow-title").getAttribute("title");
    },
    function() {
+    return document.querySelector("#watch-headline-title > span").getAttribute("title");
+   },
+   function() {
     return document.title.match(/^(.*) - YouTube$/)[1];
    }
   );
   self.author = Try.all(
    function() {
     return document.querySelector("#watch-uploader-info > .author").textContent;
+   },
+   function() {
+    return document.querySelector("#watch7-user-header > .yt-user-name").textContent;
    },
    function() {
     return document.querySelector("#watch-userbanner").getAttribute("title");
@@ -495,6 +501,7 @@ var Interface = (function() {
   notifyUpdate: notifyUpdate,
  };
  var groups;
+ var watch7 = false;
  var links = [];
  var nextId = 0;
  // createOptionsButton() - Creates the button that opens the options menu
@@ -583,7 +590,11 @@ var Interface = (function() {
   var link = document.createElement("a"),
       elem = document.createElement("button");
   link.setAttribute("href", "javascript:;");
-  elem.className = "start yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip";
+  elem.className = "start" +
+   (watch7 ? "" : " yt-uix-tooltip-reverse") +
+   " yt-uix-button" +
+   (watch7 ? " yt-uix-button-hh-text" : " yt-uix-button-default") +
+   " yt-uix-tooltip";
   elem.setAttribute("title", T("download-button-tip"));
   elem.setAttribute("type", "button");
   elem.setAttribute("role", "button");
@@ -595,7 +606,11 @@ var Interface = (function() {
  function createMenuButton()
  {
   var elem = document.createElement("button");
-  elem.className = "end yt-uix-tooltip-reverse yt-uix-button yt-uix-button-default yt-uix-tooltip";
+  elem.className = "end" +
+   (watch7 ? "" : " yt-uix-tooltip-reverse") +
+   " yt-uix-button" +
+   (watch7 ? " yt-uix-button-hh-text" : " yt-uix-button-default") +
+   " yt-uix-button-empty yt-uix-tooltip";
   elem.setAttribute("title", T("menu-button-tip"));
   elem.setAttribute("type", "button");
   elem.setAttribute("role", "button");
@@ -781,7 +796,12 @@ var Interface = (function() {
  {
   // Get the flag button from the actions menu
   var watchFlag = document.getElementById("watch-flag"),
-      buttonGroup = document.createElement("span");
+      buttonGroup = document.createElement("span"),
+      watchLike = document.getElementById("watch-like"),
+      watchLikeDislike = document.getElementById("watch7-sentiment-actions");
+  // If on the new interface.
+  if (watchLikeDislike)
+   watch7 = true;
   groups = [
    { title: T("group-high-definition"), predicate: function(stream) {
     return stream.height && stream.container && stream.container != "3GPP" && stream.height > 576;
@@ -804,15 +824,27 @@ var Interface = (function() {
   self.menu.appendChild(self.options = createOptions());
   self.menu.appendChild(self.downloads = document.createElement("div"));
   self.menuButton.appendChild(self.menu);
-  // If the flag button is disabled, all the controls should be disabled
-  self.dlButton.disabled = self.menuButton.disabled = watchFlag.disabled;
   // Populate the button group
   buttonGroup.appendChild(self.dlButton);
   buttonGroup.appendChild(self.menuButton);
-  // Insert the button group before the flag button
-  watchFlag.parentNode.insertBefore(buttonGroup, watchFlag);
-  // Also insert some whitespace
-  watchFlag.parentNode.insertBefore(document.createTextNode(" "), watchFlag);
+  if (watch7)
+  {
+   // If the like button is disabled, all the controls should be disabled
+   self.dlButton.disabled = self.menuButton.disabled = watchLike.disabled;
+   watchLikeDislike.appendChild(document.createTextNode(" "));
+   watchLikeDislike.appendChild(buttonGroup);
+   watchLikeDislike.setAttribute("id", "ytd-sentiment-actions");
+   watchLikeDislike.style.float = "left";
+  }
+  else
+  {
+   // If the flag button is disabled, all the controls should be disabled
+   self.dlButton.disabled = self.menuButton.disabled = watchFlag.disabled;
+   // Insert the button group before the flag button
+   watchFlag.parentNode.insertBefore(buttonGroup, watchFlag);
+   // Also insert some whitespace
+   watchFlag.parentNode.insertBefore(document.createTextNode(" "), watchFlag);
+  }
  }
  function notifyUpdate()
  {
