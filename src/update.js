@@ -39,6 +39,9 @@ var Update = (function() {
 	// Interface module.
 	function check()
 	{
+		delete localStorage["ytd-update-sha1sum"];
+		delete localStorage["ytd-last-update"];
+
 		apiRequest("https://api.github.com/repos/rossy2401/youtube-video-download/git/refs/heads/master", function(json) {
 			if (!json)
 				return;
@@ -58,6 +61,7 @@ var Update = (function() {
 						var sha1sum = atob(json.content.replace(/\n/g, ""));
 
 						localStorage["ytd-update-sha1sum"] = sha1sum;
+						localStorage["ytd-last-update"] = Date.now();
 
 						if (sha1sum.substr(0, 7) != hash)
 							Interface.notifyUpdate();
