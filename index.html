@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>YouTube Video Download</title>
+  <meta name="description" content="Download videos from YouTube. Simple, lightweight and supports all formats, including WebM.">
+  <meta name="author" content="James Ross-Gowan &lt;rossymiles@gmail.com&gt;">
+  <link href="style.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <div id="big-screenshot-container">
+   <img id="big-screenshot" src="screenshot.png" alt="The script in action">
+  </div>
+  <div id="main">
+   <p id="description"><b>YouTube Video Download</b> is a userscript for YouTube that allows you to download videos to your computer.</p>
+   <p>It's lightweight, easy to use and supports all video formats found on the page.</p>
+   <a id="install" href="https://github.com/rossy2401/youtube-video-download/raw/master/youtube-video-download.user.js">INSTALL<br><i>.user.js</i></a>
+   <p>If you're familiar with userscripts, click the red button and enjoy, otherwise please read the instructions
+    for your web browser below.</p>
+   <ul class="tabs">
+    <li><a href="#firefox">Firefox</a></li>
+    <li><a href="#chrome">Chrome</a></li>
+    <li><a href="#opera">Opera</a></li>
+   </ul>
+   <div id="firefox" class="page">
+    <h2>How to install in <a target="_blank" href="http://www.mozilla.org/en-US/firefox">Mozilla Firefox</a></h2>
+    <ol>
+     <li>Install <a href="https://addons.mozilla.org/firefox/addon/greasemonkey/">Greasemonkey</a> or
+      <a href="https://addons.mozilla.org/en-US/firefox/addon/scriptish/">Scriptish</a>.</li>
+     <p class="center"><img src="greasemonkey.png" class="instruction"></p>
+     <li>Restart Firefox.</li>
+     <li>Click the install link above.</li>
+    </ol>
+   </div>
+   <div id="chrome" class="page">
+    <h2>How to install in <a target="_blank" href="http://www.google.com/chrome">Google Chrome</a></h2>
+    <ol>
+     <li>Save the install link above. Make sure the file name ends in <b>.user</b> or <b>.user.js</b>.</li>
+     <p class="center"><img src="savelink.png" class="instruction"></p>
+     <li>Open the Extensions page (Tools ⇒ Extensions) and drag the file on to it.</li>
+    </ol>
+   </div>
+   <div id="opera" class="page">
+    <h2>How to install in <a target="_blank" href="http://www.opera.com">Opera</a></h2>
+    <ol>
+     <li>Create a folder somewhere on your computer to store userscripts.</li>
+     <p class="center"><img src="userjavascript.png" class="instruction"></p>
+     <li>Go to your JavaScript options (Opera ⇒ Settings ⇒ Preferences... ⇒ Advanced ⇒ Content ⇒ JavaScript Options...)
+      and set your User JavaScript folder to the one you made.</li>
+     <p class="center"><img src="choosefolder.png" class="instruction"></p>
+     <li>Save the install link above to your userscripts folder. Make sure the file name ends in <b>.user</b> or <b>.user.js</b>.</li>
+     <p class="center"><img src="linkedcontent.png" class="instruction"></p>
+   </div>
+   <img class="right" src="menu.png">
+   <h2 id="usage">How to use</h2>
+   <p>Click the <b>Download</b> button on any YouTube video to save it in the highest available quality.</p>
+   <p>Open the menu next to the button to save the video in other formats, from 1080p and 4K to mobile phone video.</p>
+   <p>Most computers can play the MP4 format files on the list, but formats like WebM and FLV are also provided for advanced users.</p>
+   <p>To play WebM and FLV video, try <a target="_blank" href="http://www.videolan.org/vlc/">VLC</a>.</p>
+   <h3>Title formats</h3>
+   <p>In the options menu you can change the format of the video file names. The default value, <code>${title}</code> causes the
+    video to keeps its original title. Something like <code>${author} - ${title}</code> will include the channel name in the file name and values
+    like <a href="http://en.wikipedia.org/wiki/Youtube#Quality_and_codecs"><code>${itag}</code></a>, <code>${acodec}</code> and <code>${vcodec}</code> return information about the video format.</p>
+    <p class="center"><img src="titleformat.png" class="instruction"></p>
+   <h2 id="faq">FAQ</h2>
+   <p class="question">There's no Download button, or when I click on the Download button there's no menu. What's going on?</p>
+   <p>This happens when an error causes the script to crash. This can be caused by any number of problems, from YouTube updates, to incompatible extensions. Make sure you're running the latest version of your browser, the latest version of the script and <a href="#contact">tell me about the problem</a> so I can fix it.</p>
+   <p class="question">I thought you said this script could download videos in 1080p. Why can't I see a 1080p download link?</p>
+   <p>Not every format is available for every video. For example, 1080p downloads are only available for videos that were originally uploaded in HD and were uploaded recently. To test a 1080p download, try this video: <a href="http://www.youtube.com/watch?v=9dgSa4wmMzk">http://www.youtube.com/watch?v=9dgSa4wmMzk</a>.</p>
+   <h2 id="translations">Translations</h2>
+   <p>Thanks to many generous contributors, YouTube Video Download works in many languages.</p>
+   <p>If you would like to add a language to this list or to improve a language that has already been added, please <a href="#contact">contact me</a>.</p>
+   <h2 id="contact">Contact</h2>
+  </div>
+  <nav><ul>
+    <li><a href="#description" id="main-link">YouTube Video Download</a></li><li><a href="#usage">How to use</a></li><li><a href="#faq">FAQ</a></li><li><a href="#translations">Translations</a></li><li><a href="#faq">Contact</a></li>
+  </ul></nav>
+  <a href="https://github.com/rossy2401/youtube-video-download">
+   <img id="fork-me" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub">
+  </a>
+  <script type="text/javascript" src="script.js"></script>
+ </body>
+</html>
