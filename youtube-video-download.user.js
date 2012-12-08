@@ -2,7 +2,7 @@
 // @name           YouTube Video Download
 // @namespace      sooaweso.me
 // @description    Download videos from YouTube. Simple, lightweight and supports all formats, including WebM.
-// @version        4.0
+// @version        4.0.1
 // @author         rossy
 // @license        MIT License
 // @grant          none
@@ -62,7 +62,8 @@
 
  function script()
  {
-  var version = 4.0, hash = "dd3912d";
+
+  var version = "4.0.1", hash = "86b971c";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -643,6 +644,8 @@ var Interface = (function() {
  }
  function updateLink(href, target)
  {
+  if (window.opera)
+   return;
   var data = { "href": href, target: target };
   var event = document.createEvent("MessageEvent");
   event.initMessageEvent("ytd-update-link", true, true, JSON.stringify(data), document.location.origin, "", window);

@@ -62,7 +62,8 @@
 
 	function script()
 	{
-		var version = VERSION, hash = "HASH";
+#define STR(s) #s
+		var version = STR(VERSION), hash = "HASH";
 		#import "tools.js"
 		#import "main.js"
 

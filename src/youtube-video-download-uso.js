@@ -72,7 +72,8 @@
 
 	function script()
 	{
-		var version = VERSION;
+#define STR(s) #s
+		var version = STR(VERSION);
 #define USO
 		#import "tools.js"
 		#import "main.js"

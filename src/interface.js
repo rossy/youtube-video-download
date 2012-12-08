@@ -185,6 +185,9 @@ var Interface = (function() {
 
 	function updateLink(href, target)
 	{
+		if (window.opera)
+			return;
+
 		var data = { "href": href, target: target };
 		var event = document.createEvent("MessageEvent");
 		event.initMessageEvent("ytd-update-link", true, true, JSON.stringify(data), document.location.origin, "", window);
