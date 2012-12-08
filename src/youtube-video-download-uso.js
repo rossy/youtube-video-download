@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name           YouTube Video Download
-// @namespace      sooaweso.me
+// @namespace      http://rossy2401.blogspot.com/
 // @description    Download videos from YouTube. Simple, lightweight and supports all formats, including WebM.
 // @version        VERSION
 // @author         rossy
 // @license        MIT License
 // @grant          none
-// @updateURL      https://github.com/rossy2401/youtube-video-download/raw/master/youtube-video-download.user.js
+// @updateURL      https://userscripts.org/scripts/source/62634.user.js
+// @include        https://userscripts.org/scripts/source/62634.meta.js
 // @include        http://www.youtube.com/watch?*
 // @include        https://www.youtube.com/watch?*
 // @include        http://*.c.youtube.com/videoplayback?*
@@ -23,6 +24,15 @@
 		elem.textContent = "(function() {\"use strict\"; (" + str + ")();})();";
 
 		document.body.appendChild(elem);
+	}
+
+	if (document.location.href == "https://userscripts.org/scripts/source/62634.meta.js")
+	{
+		inject(function() {
+			window.parent.postMessage(document.documentElement.textContent, "*");
+		});
+
+		return;
 	}
 
 	function formatSize(bytes)
@@ -62,7 +72,8 @@
 
 	function script()
 	{
-		var version = VERSION, hash = "HASH";
+		var version = VERSION;
+#define USO
 		#import "tools.js"
 		#import "main.js"
 

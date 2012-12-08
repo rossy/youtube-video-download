@@ -319,7 +319,11 @@ var Interface = (function() {
 		var a = document.createElement("a");
 
 		a.className = "yt-uix-button-menu-item";
+#ifdef USO
+		a.setAttribute("href", "https://userscripts.org/scripts/source/62634.user.js");
+#else
 		a.setAttribute("href", "https://github.com/rossy2401/youtube-video-download/raw/master/youtube-video-download.user.js");
+#endif
 
 		a.appendChild(document.createTextNode(T("button-update")));
 		elem.appendChild(a);

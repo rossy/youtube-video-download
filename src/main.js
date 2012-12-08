@@ -1,7 +1,12 @@
 #import "videoinfo.js"
 #import "interface.js"
 #import "streammap.js"
+
+#ifdef USO
+#import "update-uso.js"
+#else
 #import "update.js"
+#endif
 
 function main()
 {
@@ -20,12 +25,24 @@ function main()
 	Interface.update(StreamMap.getStreams());
 
 	if ((localStorage["ytd-check-updates"] == "true"))
+#ifdef USO
+		if (localStorage["ytd-current-version"] != version ||
+#else
 		if (localStorage["ytd-current-sha1sum"] != hash ||
+#endif
 			!localStorage["ytd-last-update"] ||
 			Number(localStorage["ytd-last-update"]) < Date.now() - 2 * 24 * 60 * 60 * 1000)
 			Update.check();
+#ifdef USO
+		else if (localStorage["ytd-update-version"] && localStorage["ytd-update-version"].substr(0, 7) != version)
+#else
 		else if (localStorage["ytd-update-sha1sum"] && localStorage["ytd-update-sha1sum"].substr(0, 7) != hash)
+#endif
 			Interface.notifyUpdate();
 
+#ifdef USO
+	localStorage["ytd-current-version"] = version;
+#else
 	localStorage["ytd-current-sha1sum"] = hash;
+#endif
 }

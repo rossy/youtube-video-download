@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name           YouTube Video Download
-// @namespace      sooaweso.me
+// @namespace      http://rossy2401.blogspot.com/
 // @description    Download videos from YouTube. Simple, lightweight and supports all formats, including WebM.
 // @version        4.0
 // @author         rossy
 // @license        MIT License
 // @grant          none
-// @updateURL      https://github.com/rossy2401/youtube-video-download/raw/master/youtube-video-download.user.js
+// @updateURL      https://userscripts.org/scripts/source/62634.user.js
+// @include        https://userscripts.org/scripts/source/62634.meta.js
 // @include        http://www.youtube.com/watch?*
 // @include        https://www.youtube.com/watch?*
 // @include        http://*.c.youtube.com/videoplayback?*
@@ -23,6 +24,15 @@
   elem.textContent = "(function() {\"use strict\"; (" + str + ")();})();";
 
   document.body.appendChild(elem);
+ }
+
+ if (document.location.href == "https://userscripts.org/scripts/source/62634.meta.js")
+ {
+  inject(function() {
+   window.parent.postMessage(document.documentElement.textContent, "*");
+  });
+
+  return;
  }
 
  function formatSize(bytes)
@@ -62,7 +72,7 @@
 
  function script()
  {
-  var version = 4.0, hash = "dd3912d";
+  var version = 4.0;
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -750,7 +760,7 @@ var Interface = (function() {
   elem.appendChild(createHeader(T("group-update")));
   var a = document.createElement("a");
   a.className = "yt-uix-button-menu-item";
-  a.setAttribute("href", "https://github.com/rossy2401/youtube-video-download/raw/master/youtube-video-download.user.js");
+  a.setAttribute("href", "https://userscripts.org/scripts/source/62634.user.js");
   a.appendChild(document.createTextNode(T("button-update")));
   elem.appendChild(a);
   return elem;
@@ -862,7 +872,7 @@ var Interface = (function() {
  }
  return self;
 })();
-// Update - Check GitHub for updates
+// Update - Check Userscripts.org for updates
 var Update = (function() {
  self = {
   check: check,
@@ -889,34 +899,26 @@ var Update = (function() {
   };
   xhr.send();
  }
- // check() - Query GitHub for changes to
- // "youtube-video-download.user.js.sha1sum". If there is, inform the
- // Interface module.
+ // check() - Query Userscript.org for changes to the script's version
+ // number. If there is, inform the Interface module.
  function check()
  {
-  delete localStorage["ytd-update-sha1sum"];
+  delete localStorage["ytd-update-version"];
   delete localStorage["ytd-last-update"];
-  apiRequest("https://api.github.com/repos/rossy2401/youtube-video-download/git/refs/heads/master", function(json) {
-   if (!json)
-    return;
-   apiRequest(json.object.url, function (json) {
-    if (!json)
-     return;
-    apiRequest(json.tree.url, function (json) {
-     if (!json)
-      return;
-     apiRequest(json.tree.filter(function(a) { return a.path == "youtube-video-download.user.js.sha1sum"; })[0].url, function (json) {
-      if (!json)
-       return;
-      var sha1sum = atob(json.content.replace(/\n/g, ""));
-      localStorage["ytd-update-sha1sum"] = sha1sum;
-      localStorage["ytd-last-update"] = Date.now();
-      if (sha1sum.substr(0, 7) != hash)
-       Interface.notifyUpdate();
-     });
-    });
-   });
-  });
+  window.addEventListener("message", function(event) {
+   var remoteVersion = /^\/\/ @version\s+(.+)$/m.exec(event.data)[1];
+   if (remoteVersion)
+   {
+    localStorage["ytd-last-update"] = Date.now();
+    localStorage["ytd-update-version"] = remoteVersion;
+    if (remoteVersion != version)
+     Interface.notifyUpdate();
+   }
+  }, false);
+  var iframe = document.createElement("iframe");
+  iframe.setAttribute("src", "https://userscripts.org/scripts/source/62634.meta.js");
+  iframe.setAttribute("style", "position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; opacity: 0;");
+  document.body.appendChild(iframe);
  }
  return self;
 })();
@@ -932,13 +934,13 @@ function main()
  Interface.init();
  Interface.update(StreamMap.getStreams());
  if ((localStorage["ytd-check-updates"] == "true"))
-  if (localStorage["ytd-current-sha1sum"] != hash ||
+  if (localStorage["ytd-current-version"] != version ||
    !localStorage["ytd-last-update"] ||
    Number(localStorage["ytd-last-update"]) < Date.now() - 2 * 24 * 60 * 60 * 1000)
    Update.check();
-  else if (localStorage["ytd-update-sha1sum"] && localStorage["ytd-update-sha1sum"].substr(0, 7) != hash)
+  else if (localStorage["ytd-update-version"] && localStorage["ytd-update-version"].substr(0, 7) != version)
    Interface.notifyUpdate();
- localStorage["ytd-current-sha1sum"] = hash;
+ localStorage["ytd-current-version"] = version;
 }
   main();
  }
