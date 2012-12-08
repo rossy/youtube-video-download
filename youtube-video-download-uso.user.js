@@ -2,7 +2,7 @@
 // @name           YouTube Video Download
 // @namespace      http://rossy2401.blogspot.com/
 // @description    Download videos from YouTube. Simple, lightweight and supports all formats, including WebM.
-// @version        4.0.1
+// @version        4.0.2
 // @author         rossy
 // @license        MIT License
 // @grant          none
@@ -73,7 +73,7 @@
  function script()
  {
 
-  var version = "4.0.1";
+  var version = "4.0.2";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -548,6 +548,7 @@ var Interface = (function() {
   elem.style.padding = "2px 13px";
   elem.style.fontWeight = "bold";
   elem.style.borderBottom = "1px solid #999";
+  elem.style.paddingTop = "5px";
   elem.appendChild(document.createTextNode(text));
   return elem;
  }
@@ -645,6 +646,7 @@ var Interface = (function() {
   var elem = document.createElement("div");
   elem.className = "yt-uix-button-menu";
   elem.style.display = "none";
+  elem.style.fontSize = "12px";
   return elem;
  }
  function formatTitle(stream)
@@ -684,6 +686,7 @@ var Interface = (function() {
   size.style.left = "0px";
   size.style.top = "0px";
   size.style.paddingLeft = size.style.paddingRight = "0px";
+  size.style.paddingTop = size.style.paddingBottom = "8px";
   size.style.color = "inherit";
   // Create the main video link
   mainLink.className = "yt-uix-button-menu-item";
@@ -694,6 +697,7 @@ var Interface = (function() {
   mainLink.style.display = "block";
   mainLink.style.paddingLeft = "55px";
   mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
+  mainLink.style.paddingTop = mainLink.style.paddingBottom = "8px";
   mainLink.addEventListener("contextmenu", function(e) {
    // Prevent right-click closing the menu in Chrome
    e.stopPropagation();
@@ -720,6 +724,7 @@ var Interface = (function() {
    subLink.style.width = "53px";
    subLink.style.paddingLeft = subLink.style.paddingRight = "5px";
    subLink.style.borderLeft = "1px solid #DDD";
+   subLink.style.paddingTop = subLink.style.paddingBottom = "8px";
    subLink.addEventListener("contextmenu", function(e) {
     // Prevent right-click closing the menu in Chrome
     e.stopPropagation();
@@ -763,6 +768,7 @@ var Interface = (function() {
   elem.appendChild(createHeader(T("group-update")));
   var a = document.createElement("a");
   a.className = "yt-uix-button-menu-item";
+  a.style.paddingTop = a.style.paddingBottom = "8px";
   a.setAttribute("href", "https://userscripts.org/scripts/source/62634.user.js");
   a.appendChild(document.createTextNode(T("button-update")));
   elem.appendChild(a);

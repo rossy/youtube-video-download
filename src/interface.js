@@ -45,6 +45,7 @@ var Interface = (function() {
 		elem.style.padding = "2px 13px";
 		elem.style.fontWeight = "bold";
 		elem.style.borderBottom = "1px solid #999";
+		elem.style.paddingTop = "5px";
 
 		elem.appendChild(document.createTextNode(text));
 
@@ -173,6 +174,7 @@ var Interface = (function() {
 
 		elem.className = "yt-uix-button-menu";
 		elem.style.display = "none";
+		elem.style.fontSize = "12px";
 
 		return elem;
 	}
@@ -220,6 +222,7 @@ var Interface = (function() {
 		size.style.left = "0px";
 		size.style.top = "0px";
 		size.style.paddingLeft = size.style.paddingRight = "0px";
+		size.style.paddingTop = size.style.paddingBottom = "8px";
 		size.style.color = "inherit";
 
 		// Create the main video link
@@ -233,6 +236,7 @@ var Interface = (function() {
 		mainLink.style.display = "block";
 		mainLink.style.paddingLeft = "55px";
 		mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
+		mainLink.style.paddingTop = mainLink.style.paddingBottom = "8px";
 
 		mainLink.addEventListener("contextmenu", function(e) {
 			// Prevent right-click closing the menu in Chrome
@@ -265,6 +269,7 @@ var Interface = (function() {
 			subLink.style.width = "53px";
 			subLink.style.paddingLeft = subLink.style.paddingRight = "5px";
 			subLink.style.borderLeft = "1px solid #DDD";
+			subLink.style.paddingTop = subLink.style.paddingBottom = "8px";
 
 			subLink.addEventListener("contextmenu", function(e) {
 				// Prevent right-click closing the menu in Chrome
@@ -322,6 +327,7 @@ var Interface = (function() {
 		var a = document.createElement("a");
 
 		a.className = "yt-uix-button-menu-item";
+		a.style.paddingTop = a.style.paddingBottom = "8px";
 #ifdef USO
 		a.setAttribute("href", "https://userscripts.org/scripts/source/62634.user.js");
 #else
