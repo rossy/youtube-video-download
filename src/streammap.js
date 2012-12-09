@@ -37,12 +37,20 @@ var StreamMap = (function() {
 
 	function containerToNum(container)
 	{
-		return {
-			"MP4": 1,
-			"FLV": 2,
-			"WebM": 3,
-			"3GPP": 4,
-		}[container] || 5;
+		if (localStorage["ytd-prefer-webm"] == "true")
+			return {
+				"WebM": 1,
+				"MP4": 2,
+				"FLV": 3,
+				"3GPP": 4,
+			}[container] || 5;
+		else
+			return {
+				"MP4": 1,
+				"FLV": 2,
+				"WebM": 3,
+				"3GPP": 4,
+			}[container] || 5;
 	}
 
 	// sortFunc(a, b) - Sort streams from best to worst

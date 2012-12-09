@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.2", hash = "f73c8bf";
+  var version = "4.0.2", hash = "1576a0f";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -304,7 +304,7 @@ var VideoInfo = (function() {
 var Languages = {
  "cs": {"credit0-name": "janwatzek","credit0-url": "http://userscripts.org/users/janwatzek","download-button-tip": "Uložit video na pevný disk","download-button-text": "Stáhnout","menu-button-tip": "Vyberte formát ke stažení","group-options": "Nastavení","group-high-definition": "Vysoké rozlišení","group-standard-definition": "Standardní rozlišení","group-mobile": "Mobile","group-unknown": "Neznámý formát","group-update": "Nová verze skriptu YouTube Video Download je dostupná ke stažení!","option-check": "Kontrolovat aktualizace","option-format": "Formát názvu videa","button-options": "nastavení","button-options-close": "close","button-update": "Klikněte sem pro aktualizaci","error-no-downloads": "Žádné formáty nejsou dostupné ke stažení"},
  "de": {"credit0-name": "QuHno","credit0-url": "http://userscripts.org/users/348658","download-button-tip": "Video auf der Festplatte speichern","download-button-text": "Download","menu-button-tip": "Download Format wählen","group-options": "Einstellungen","group-high-definition": "HD","group-standard-definition": "Standard Auflösung","group-mobile": "Mobile","group-unknown": "Unbekanntes Format","group-update": "Eine neue Version von YouTube Video Download steht zur Verfügung","option-check": "Auf neue Version überprüfen","option-format": "Titel Format","button-options": "einstellungen","button-options-close": "close","button-update": "Hier klicken um jetzt upzudaten","error-no-downloads": "Keine Download Formate vorhanden"},
- "en": {"download-button-tip": "Download this video","download-button-text": "Download","menu-button-tip": "Choose from additional formats","group-options": "Options","group-high-definition": "High definition","group-standard-definition": "Standard definition","group-mobile": "Mobile","group-unknown": "Unknown formats","group-update": "An update is available","option-check": "Check for updates","option-format": "Title format","button-options": "options","button-options-close": "close","button-update": "Click here to update YouTube Video Download","error-no-downloads": "No downloadable streams found"},
+ "en": {"download-button-tip": "Download this video","download-button-text": "Download","menu-button-tip": "Choose from additional formats","group-options": "Options","group-high-definition": "High definition","group-standard-definition": "Standard definition","group-mobile": "Mobile","group-unknown": "Unknown formats","group-update": "An update is available","option-check": "Check for updates","option-webm": "Prefer WebM","option-format": "Title format","button-options": "options","button-options-close": "close","button-update": "Click here to update YouTube Video Download","error-no-downloads": "No downloadable streams found"},
  "fr": {"credit0-name": "jok-r","credit0-url": "http://userscripts.org/users/87056","download-button-tip": "Télécharger cette vidéo","download-button-text": "Télécharger","menu-button-tip": "Choisissez le format à télécharger","group-options": "Options","group-high-definition": "Haute définition","group-standard-definition": "Définition standard","group-mobile": "Mobile","group-unknown": "Format inconnu","group-update": "Une nouvelle version de YouTube Video Download est disponible","option-check": "Vérifier les mises à jour","option-format": "Format du nom de fichier","button-options": "options","button-options-close": "close","button-update": "Cliquer ici pour mettre à jour maintenant","error-no-downloads": "Pas de formats de téléchargement disponible"},
  "it": {"credit0-name": "Kharg","credit0-url": "http://userscripts.org/users/kharg","download-button-tip": "Salva il video nell'HD","download-button-text": "Scarica","menu-button-tip": "Scegli un formato da scaricare","group-options": "Opzioni","group-high-definition": "Alta definizione","group-standard-definition": "Qualità standard","group-mobile": "Mobile","option-check": "Controlla la disponibilità di aggiornamenti","option-format": "Formato titolo","button-options": "opzioni","button-options-close": "close","error-no-downloads": "Nessun formato da scaricare disponibile"},
  "ja": {"credit0-name": "K-M","credit0-url": "http://userscripts.org/users/184613","download-button-tip": "ハードディスクにビデオを保存","download-button-text": "ダウンロード","menu-button-tip": "ダウンロードする形式を選択","group-options": "オプション","group-high-definition": "高画質","group-standard-definition": "普通の画質","group-mobile": "Mobile","group-unknown": "不明な形式","group-update": "YouTube Video Downloadの更新があります","option-check": "更新を確認","option-format": "タイトルの形式","button-options": "オプション","button-options-close": "close","button-update": "ここをクリックすると更新します","error-no-downloads": "ダウンロードできません"},
@@ -355,12 +355,20 @@ var StreamMap = (function() {
  ];
  function containerToNum(container)
  {
-  return {
-   "MP4": 1,
-   "FLV": 2,
-   "WebM": 3,
-   "3GPP": 4,
-  }[container] || 5;
+  if (localStorage["ytd-prefer-webm"] == "true")
+   return {
+    "WebM": 1,
+    "MP4": 2,
+    "FLV": 3,
+    "3GPP": 4,
+   }[container] || 5;
+  else
+   return {
+    "MP4": 1,
+    "FLV": 2,
+    "WebM": 3,
+    "3GPP": 4,
+   }[container] || 5;
  }
  // sortFunc(a, b) - Sort streams from best to worst
  function sortFunc(a, b)
@@ -513,6 +521,7 @@ var Interface = (function() {
  };
  var groups;
  var watch7 = false;
+ var lastStreams;
  var links = [];
  var nextId = 0;
  // createOptionsButton() - Creates the button that opens the options menu
@@ -573,6 +582,11 @@ var Interface = (function() {
   // Determine whether to check GitHub for updates every two days
   elem.appendChild(createCheckbox(T("option-check"), localStorage["ytd-check-updates"] == "true", function (checked) {
    localStorage["ytd-check-updates"] = checked;
+  }));
+  // Prefer WebM over MP4
+  elem.appendChild(createCheckbox(T("option-webm"), localStorage["ytd-prefer-webm"] == "true", function (checked) {
+   localStorage["ytd-prefer-webm"] = checked;
+   update(lastStreams);
   }));
   // Add box for setting the format string
   var formatLabel = document.createElement("label"),
@@ -786,13 +800,15 @@ var Interface = (function() {
  // update(streams) - Adds streams to the menu
  function update(streams)
  {
+  lastStreams = streams;
   streams = streams
    .filter(function(obj) { return obj.url; })
    .sort(StreamMap.sortFunc);
   links = [];
-  var mp4streams = streams.filter(function(obj) { return obj.container == "MP4"; });
-  if (mp4streams.length)
-   setDlButton(mp4streams[0]);
+  var preferredFormat = localStorage["ytd-prefer-webm"] == "true" ? "WebM" : "MP4";
+  var preferredStreams = streams.filter(function(obj) { return obj.container == preferredFormat; });
+  if (preferredStreams.length)
+   setDlButton(preferredStreams[0]);
   else if (streams.length)
    setDlButton(streams[0]);
   else
@@ -802,6 +818,7 @@ var Interface = (function() {
    self.menuButton.setAttribute("title", "");
    button.setAttribute("title", T("error-no-downloads"));
   }
+  self.downloads.innerHTML = "";
   for (var i = 0, max = groups.length; i < max; i ++)
   {
    var groupStreams = streams.filter(groups[i].predicate);
@@ -935,6 +952,8 @@ function main()
   Languages.current = Languages[yt.config_.HL_LOCALE];
  if (localStorage["ytd-check-updates"] === undefined)
   localStorage["ytd-check-updates"] = true;
+ if (localStorage["ytd-prefer-webm"] === undefined)
+  localStorage["ytd-prefer-webm"] = false;
  if (localStorage["ytd-title-format"] === undefined)
   localStorage["ytd-title-format"] = "${title}";
  VideoInfo.init();

@@ -16,6 +16,9 @@ function main()
 	if (localStorage["ytd-check-updates"] === undefined)
 		localStorage["ytd-check-updates"] = true;
 
+	if (localStorage["ytd-prefer-webm"] === undefined)
+		localStorage["ytd-prefer-webm"] = false;
+
 	if (localStorage["ytd-title-format"] === undefined)
 		localStorage["ytd-title-format"] = "${title}";
 

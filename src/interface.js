@@ -11,6 +11,7 @@ var Interface = (function() {
 
 	var groups;
 	var watch7 = false;
+	var lastStreams;
 
 	var links = [];
 
@@ -93,6 +94,12 @@ var Interface = (function() {
 		// Determine whether to check GitHub for updates every two days
 		elem.appendChild(createCheckbox(T("option-check"), localStorage["ytd-check-updates"] == "true", function (checked) {
 			localStorage["ytd-check-updates"] = checked;
+		}));
+
+		// Prefer WebM over MP4
+		elem.appendChild(createCheckbox(T("option-webm"), localStorage["ytd-prefer-webm"] == "true", function (checked) {
+			localStorage["ytd-prefer-webm"] = checked;
+			update(lastStreams);
 		}));
 
 		// Add box for setting the format string
@@ -366,15 +373,17 @@ var Interface = (function() {
 	// update(streams) - Adds streams to the menu
 	function update(streams)
 	{
+		lastStreams = streams;
 		streams = streams
 			.filter(function(obj) { return obj.url; })
 			.sort(StreamMap.sortFunc);
 		links = [];
 
-		var mp4streams = streams.filter(function(obj) { return obj.container == "MP4"; });
+		var preferredFormat = localStorage["ytd-prefer-webm"] == "true" ? "WebM" : "MP4";
+		var preferredStreams = streams.filter(function(obj) { return obj.container == preferredFormat; });
 
-		if (mp4streams.length)
-			setDlButton(mp4streams[0]);
+		if (preferredStreams.length)
+			setDlButton(preferredStreams[0]);
 		else if (streams.length)
 			setDlButton(streams[0]);
 		else
@@ -386,6 +395,8 @@ var Interface = (function() {
 
 			button.setAttribute("title", T("error-no-downloads"));
 		}
+
+		self.downloads.innerHTML = "";
 
 		for (var i = 0, max = groups.length; i < max; i ++)
 		{
