@@ -10,7 +10,6 @@ var Interface = (function() {
 	};
 
 	var groups;
-	var watch7 = false;
 	var lastStreams;
 
 	var links = [];
@@ -150,14 +149,12 @@ var Interface = (function() {
 
 		link.setAttribute("href", "javascript:;");
 
-		elem.className = "start" +
-			(watch7 ? "" : " yt-uix-tooltip-reverse") +
-			" yt-uix-button" +
-			(watch7 ? " yt-uix-button-hh-text" : " yt-uix-button-default") +
-			" yt-uix-tooltip";
+		elem.className = "start yt-uix-button yt-uix-button-hh-text yt-uix-tooltip";
 		elem.setAttribute("title", T("download-button-tip"));
 		elem.setAttribute("type", "button");
 		elem.setAttribute("role", "button");
+		elem.style.marginRight = "-1px";
+		elem.style.borderTopRightRadius = elem.style.borderBottomRightRadius = "0px";
 
 		elem.innerHTML = "<span class=\"yt-uix-button-content\">" + T("download-button-text") + "</span>";
 
@@ -171,15 +168,13 @@ var Interface = (function() {
 	{
 		var elem = document.createElement("button");
 
-		elem.className = "end" +
-			(watch7 ? "" : " yt-uix-tooltip-reverse") +
-			" yt-uix-button" +
-			(watch7 ? " yt-uix-button-hh-text" : " yt-uix-button-default") +
-			" yt-uix-button-empty yt-uix-tooltip";
+		elem.className = "end yt-uix-button yt-uix-button-hh-text yt-uix-button-empty yt-uix-tooltip";
 		elem.setAttribute("title", T("menu-button-tip"));
 		elem.setAttribute("type", "button");
 		elem.setAttribute("role", "button");
 		elem.setAttribute("onclick", "; return false;");
+		elem.style.marginRight = "0px";
+		elem.style.borderTopLeftRadius = elem.style.borderBottomLeftRadius = "0px";
 
 		elem.innerHTML = "<img class=\"yt-uix-button-arrow\" style=\"margin: 0;\" src=\"//s.ytimg.com/yt/img/pixel-vfl73.gif\" alt=\"\">";
 
@@ -425,14 +420,10 @@ var Interface = (function() {
 	function init()
 	{
 		// Get the flag button from the actions menu
-		var watchFlag = document.getElementById("watch-flag"),
-		    buttonGroup = document.createElement("span"),
+		var buttonGroup = document.createElement("span"),
+		    watchSentimentActions = document.getElementById("watch7-sentiment-actions"),
 		    watchLike = document.getElementById("watch-like"),
-		    watchLikeDislike = document.getElementById("watch7-sentiment-actions");
-
-		// If on the new interface.
-		if (watchLikeDislike)
-			watch7 = true;
+		    watchDislike = document.getElementById("watch-dislike");
 
 		groups = [
 			{ title: T("group-high-definition"), predicate: function(stream) {
@@ -464,28 +455,14 @@ var Interface = (function() {
 		buttonGroup.appendChild(self.dlButton);
 		buttonGroup.appendChild(self.menuButton);
 
-		if (watch7)
-		{
-			// If the like button is disabled, all the controls should be disabled
+		// If the like button is disabled, all the controls should be disabled
+		if (watchLike)
 			self.dlButton.disabled = self.menuButton.disabled = watchLike.disabled;
 
-			watchLikeDislike.appendChild(document.createTextNode(" "));
-			watchLikeDislike.appendChild(buttonGroup);
+		watchSentimentActions.appendChild(buttonGroup);
 
-			watchLikeDislike.setAttribute("id", "ytd-sentiment-actions");
-			watchLikeDislike.style.float = "left";
-		}
-		else
-		{
-			// If the flag button is disabled, all the controls should be disabled
-			self.dlButton.disabled = self.menuButton.disabled = watchFlag.disabled;
-
-			// Insert the button group before the flag button
-			watchFlag.parentNode.insertBefore(buttonGroup, watchFlag);
-
-			// Also insert some whitespace
-			watchFlag.parentNode.insertBefore(document.createTextNode(" "), watchFlag);
-		}
+		if (watchLike && watchDislike)
+			watchLike.style.marginRight = watchDislike.style.marginRight = "2px";
 	}
 
 	function notifyUpdate()
