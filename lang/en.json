@@ -13,6 +13,7 @@
 	"option-check": "Check for updates",
 	"option-webm": "Prefer WebM",
 	"option-restrict": "Restrict button to preferred format",
+	"option-sizes": "Get video filesize",
 	"option-format": "Title format",
 
 	"button-options": "options",

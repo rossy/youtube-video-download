@@ -108,6 +108,12 @@ var Interface = (function() {
 			update(lastStreams);
 		}));
 
+		// Determine whether to get video file sizes (Chrome only)
+		if (window.chrome)
+			elem.appendChild(createCheckbox(T("option-sizes"), localStorage["ytd-get-sizes"] == "true", function (checked) {
+				localStorage["ytd-get-sizes"] = checked;
+			}));
+
 		// Add box for setting the format string
 		var formatLabel = document.createElement("label"),
 		    formatBox = document.createElement("input");
@@ -200,7 +206,7 @@ var Interface = (function() {
 
 	function updateLink(href, target)
 	{
-		if (window.opera)
+		if (!window.chrome || localStorage["ytd-get-sizes"] != "true")
 			return;
 
 		var data = { "href": href, target: target };

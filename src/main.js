@@ -22,6 +22,9 @@ function main()
 	if (localStorage["ytd-restrict"] === undefined)
 		localStorage["ytd-restrict"] = true;
 
+	if (localStorage["ytd-get-sizes"] === undefined)
+		localStorage["ytd-get-sizes"] = false;
+
 	if (localStorage["ytd-title-format"] === undefined)
 		localStorage["ytd-title-format"] = "${title}";
 
