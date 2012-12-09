@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.3", hash = "b429188";
+  var version = "4.0.3", hash = "4942693";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -275,10 +275,7 @@ var VideoInfo = (function() {
     return document.querySelector("meta[property=\"og:title\"]").getAttribute("content");
    },
    function() {
-    return document.getElementById("eow-title").getAttribute("title");
-   },
-   function() {
-    return document.querySelector("#watch-headline-title > span").getAttribute("title");
+    return document.querySelector("#watch-headline-title > .yt-uix-expander-head").getAttribute("title");
    },
    function() {
     return document.title.match(/^(.*) - YouTube$/)[1];
@@ -286,13 +283,10 @@ var VideoInfo = (function() {
   );
   self.author = Try.all(
    function() {
-    return document.querySelector("#watch-uploader-info > .author").textContent;
-   },
-   function() {
     return document.querySelector("#watch7-user-header > .yt-user-name").textContent;
    },
    function() {
-    return document.querySelector("#watch-userbanner").getAttribute("title");
+    return document.querySelector("#watch7-user-header .yt-thumb-clip img").getAttribute("alt");
    },
    function() {
     return document.querySelector("span[itemprop=author] > link[itemprop=url]").getAttribute("href").match(/www.youtube.com\/user\/([^\/]+)/)[1];
