@@ -102,6 +102,12 @@ var Interface = (function() {
 			update(lastStreams);
 		}));
 
+		// Use the preferred format for the download button
+		elem.appendChild(createCheckbox(T("option-restrict"), localStorage["ytd-restrict"] == "true", function (checked) {
+			localStorage["ytd-restrict"] = checked;
+			update(lastStreams);
+		}));
+
 		// Add box for setting the format string
 		var formatLabel = document.createElement("label"),
 		    formatBox = document.createElement("input");
@@ -382,7 +388,7 @@ var Interface = (function() {
 		var preferredFormat = localStorage["ytd-prefer-webm"] == "true" ? "WebM" : "MP4";
 		var preferredStreams = streams.filter(function(obj) { return obj.container == preferredFormat; });
 
-		if (preferredStreams.length)
+		if (localStorage["ytd-restrict"] == "true" && preferredStreams.length)
 			setDlButton(preferredStreams[0]);
 		else if (streams.length)
 			setDlButton(streams[0]);

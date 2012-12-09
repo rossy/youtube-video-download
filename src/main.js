@@ -19,6 +19,9 @@ function main()
 	if (localStorage["ytd-prefer-webm"] === undefined)
 		localStorage["ytd-prefer-webm"] = false;
 
+	if (localStorage["ytd-restrict"] === undefined)
+		localStorage["ytd-restrict"] = true;
+
 	if (localStorage["ytd-title-format"] === undefined)
 		localStorage["ytd-title-format"] = "${title}";
 
