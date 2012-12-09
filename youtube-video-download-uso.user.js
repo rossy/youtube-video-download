@@ -336,10 +336,7 @@ var Languages = {
  "zh": {"credit0-name": "Louiz","credit0-url": "http://userscripts.org/users/349372","download-button-tip": "保存到本地","download-button-text": "下载","menu-button-tip": "选择下载格式","group-options": "选项","group-high-definition": "标准分辨率","group-standard-definition": "较高分辨率","group-mobile": "Mobile","group-unknown": "未知格式","group-update": "已推出新版YouTube下载插件！","option-check": "检查更新","option-format": "标题格式","button-options": "选项","button-options-close": "close","button-update": "更新请点击这里","error-no-downloads": "下载格式不可用"},
 };
 function T(item) { return Languages.current[item] || Languages.en[item]; }
-if (Languages[document.documentElement.getAttribute("lang")] && yt && yt._config)
-Languages.current = Languages[document.documentElement.getAttribute("lang")];
-else
-Languages.current = Languages.en;
+Languages.current = (yt && yt.config_ && yt.config_.HL_LOCALE && Languages[yt.config_.HL_LOCALE]) || Languages[document.documentElement.getAttribute("lang")] || Languages.en;
 // StreamMap - Get and convert format maps
 var StreamMap = (function() {
  var self = {
@@ -949,8 +946,6 @@ var Update = (function() {
 })();
 function main()
 {
- if (yt.config_ && Languages[yt.config_.HL_LOCALE])
-  Languages.current = Languages[yt.config_.HL_LOCALE];
  if (localStorage["ytd-check-updates"] === undefined)
   localStorage["ytd-check-updates"] = true;
  if (localStorage["ytd-prefer-webm"] === undefined)
