@@ -77,6 +77,7 @@ var Interface = (function() {
 		span.appendChild(elem);
 
 		label.style.display = "block";
+		label.style.paddingRight = "13px";
 		label.appendChild(span);
 		label.appendChild(document.createTextNode(text));
 
@@ -115,14 +116,17 @@ var Interface = (function() {
 
 		// Add box for setting the format string
 		var formatLabel = document.createElement("label"),
+		    formatDiv = document.createElement("div"),
 		    formatBox = document.createElement("input");
+
+		formatDiv.style.margin = "6px 13px";
 
 		formatBox.className = "yt-uix-form-input-text";
 		formatBox.value = localStorage["ytd-title-format"];
 		formatBox.setAttribute("id", "ytd-format-box");
 		formatBox.style.display = "block";
-		formatBox.style.margin = "6px 13px";
-		formatBox.style.width = "70%";
+		formatBox.style.boxSizing = "border-box";
+		formatBox.style.width = "100%";
 		formatBox.addEventListener("input", function() {
 			localStorage["ytd-title-format"] = formatBox.value;
 			updateLinks();
@@ -134,7 +138,8 @@ var Interface = (function() {
 		formatLabel.appendChild(document.createTextNode(T("option-format")));
 
 		elem.appendChild(formatLabel);
-		elem.appendChild(formatBox);
+		formatDiv.appendChild(formatBox);
+		elem.appendChild(formatDiv);
 
 		elem.style.display = "none";
 
@@ -457,7 +462,10 @@ var Interface = (function() {
 
 		// If the like button is disabled, all the controls should be disabled
 		if (watchLike)
+		{
 			self.dlButton.disabled = self.menuButton.disabled = watchLike.disabled;
+			watchDislike.parentNode.insertBefore(document.createTextNode(" "), watchDislike);
+		}
 
 		watchSentimentActions.appendChild(buttonGroup);
 

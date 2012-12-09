@@ -585,6 +585,7 @@ var Interface = (function() {
   span.appendChild(checkbox);
   span.appendChild(elem);
   label.style.display = "block";
+  label.style.paddingRight = "13px";
   label.appendChild(span);
   label.appendChild(document.createTextNode(text));
   return label;
@@ -615,13 +616,15 @@ var Interface = (function() {
    }));
   // Add box for setting the format string
   var formatLabel = document.createElement("label"),
+      formatDiv = document.createElement("div"),
       formatBox = document.createElement("input");
+  formatDiv.style.margin = "6px 13px";
   formatBox.className = "yt-uix-form-input-text";
   formatBox.value = localStorage["ytd-title-format"];
   formatBox.setAttribute("id", "ytd-format-box");
   formatBox.style.display = "block";
-  formatBox.style.margin = "6px 13px";
-  formatBox.style.width = "70%";
+  formatBox.style.boxSizing = "border-box";
+  formatBox.style.width = "100%";
   formatBox.addEventListener("input", function() {
    localStorage["ytd-title-format"] = formatBox.value;
    updateLinks();
@@ -631,7 +634,8 @@ var Interface = (function() {
   formatLabel.style.margin = "6px";
   formatLabel.appendChild(document.createTextNode(T("option-format")));
   elem.appendChild(formatLabel);
-  elem.appendChild(formatBox);
+  formatDiv.appendChild(formatBox);
+  elem.appendChild(formatDiv);
   elem.style.display = "none";
   return elem;
  }
@@ -883,7 +887,10 @@ var Interface = (function() {
   buttonGroup.appendChild(self.menuButton);
   // If the like button is disabled, all the controls should be disabled
   if (watchLike)
+  {
    self.dlButton.disabled = self.menuButton.disabled = watchLike.disabled;
+   watchDislike.parentNode.insertBefore(document.createTextNode(" "), watchDislike);
+  }
   watchSentimentActions.appendChild(buttonGroup);
   if (watchLike && watchDislike)
    watchLike.style.marginRight = watchDislike.style.marginRight = "2px";
@@ -899,29 +906,7 @@ var Update = (function() {
  self = {
   check: check,
  };
- // apiRequest(path, callback) - Perform a JSON API request for path,
- // calling the callback(json, error) function on completion
- function apiRequest(path, callback)
- {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", path);
-  xhr.onload = function() {
-   var json;
-   try {
-    json = JSON.parse(xhr.responseText);
-   }
-   catch (e) {
-    callback(null, true);
-   }
-   if (json)
-    callback(json);
-  };
-  xhr.onerror = function() {
-   callback(null, true);
-  };
-  xhr.send();
- }
- // check() - Query Userscript.org for changes to the script's version
+ // check() - Query Userscripts.org for changes to the script's version
  // number. If there is, inform the Interface module.
  function check()
  {
