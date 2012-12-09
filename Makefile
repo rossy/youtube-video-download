@@ -1,4 +1,4 @@
-VERSION=4.0.2
+VERSION=4.0.3
 
 CPP = cpp
 SED = sed

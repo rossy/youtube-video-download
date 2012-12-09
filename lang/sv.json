@@ -1,0 +1,24 @@
+{
+	"credit0-name": "eson",
+	"credit0-url": "http://userscripts.org/users/367569",
+
+	"download-button-tip": "Ladda ner den här videon",
+	"download-button-text": "Ladda ner",
+	"menu-button-tip": "Välj mellan olika format",
+
+	"group-options": "Alternativ",
+	"group-high-definition": "Högupplöst",
+	"group-standard-definition": "Standardupplösning",
+	"group-mobile": "Mobilt",
+	"group-unknown": "Okända format",
+	"group-update": "Det finns en uppdatering tillgänglig",
+
+	"option-check": "Sök efter uppdateringar",
+	"option-format": "Titelformat",
+
+	"button-options": "Alternativ",
+	"button-options-close": "Stäng",
+	"button-update": "Klicka här för att uppdatera YouTube Video Download",
+
+	"error-no-downloads": "Det går inte att hitta några nedladdningsbara strömmar"
+}
