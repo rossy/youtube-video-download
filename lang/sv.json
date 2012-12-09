@@ -14,6 +14,9 @@
 	"group-update": "Det finns en uppdatering tillgänglig",
 
 	"option-check": "Sök efter uppdateringar",
+	"option-webm": "Prioritera WebM",
+	"option-restrict": "Begränsa knappen till prioriterat format",
+	"option-sizes": "Hämta filstorlek",
 	"option-format": "Titelformat",
 
 	"button-options": "Alternativ",
