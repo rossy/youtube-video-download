@@ -974,7 +974,7 @@ function main()
    !localStorage["ytd-last-update"] ||
    Number(localStorage["ytd-last-update"]) < Date.now() - 2 * 24 * 60 * 60 * 1000)
    Update.check();
-  else if (localStorage["ytd-update-version"] && localStorage["ytd-update-version"].substr(0, 7) != version)
+  else if (localStorage["ytd-update-version"] && localStorage["ytd-update-version"] != version)
    Interface.notifyUpdate();
  localStorage["ytd-current-version"] = version;
 }

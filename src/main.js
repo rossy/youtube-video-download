@@ -30,25 +30,25 @@ function main()
 
 	Interface.update(StreamMap.getStreams());
 
-	if ((localStorage["ytd-check-updates"] == "true"))
 #ifdef USO
+	if ((localStorage["ytd-check-updates"] == "true"))
 		if (localStorage["ytd-current-version"] != version ||
-#else
-		if (localStorage["ytd-current-sha1sum"] != hash ||
-#endif
 			!localStorage["ytd-last-update"] ||
 			Number(localStorage["ytd-last-update"]) < Date.now() - 2 * 24 * 60 * 60 * 1000)
 			Update.check();
-#ifdef USO
-		else if (localStorage["ytd-update-version"] && localStorage["ytd-update-version"].substr(0, 7) != version)
-#else
-		else if (localStorage["ytd-update-sha1sum"] && localStorage["ytd-update-sha1sum"].substr(0, 7) != hash)
-#endif
+		else if (localStorage["ytd-update-version"] && localStorage["ytd-update-version"] != version)
 			Interface.notifyUpdate();
 
-#ifdef USO
 	localStorage["ytd-current-version"] = version;
 #else
+	if ((localStorage["ytd-check-updates"] == "true"))
+		if (localStorage["ytd-current-sha1sum"] != hash ||
+			!localStorage["ytd-last-update"] ||
+			Number(localStorage["ytd-last-update"]) < Date.now() - 2 * 24 * 60 * 60 * 1000)
+			Update.check();
+		else if (localStorage["ytd-update-sha1sum"] && localStorage["ytd-update-sha1sum"].substr(0, 7) != hash)
+			Interface.notifyUpdate();
+
 	localStorage["ytd-current-sha1sum"] = hash;
 #endif
 }
