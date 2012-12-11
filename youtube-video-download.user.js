@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.3", hash = "f00f9a2";
+  var version = "4.0.3", hash = "fea7fe3";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -342,8 +342,8 @@ var StreamMap = (function() {
   { itag: 17 , width: 176, height: 144, container: "3GPP", acodec:"AAC" , vcodec: "MPEG-4" },
   { itag: 18 , width: 640, height: 360, container: "MP4" , acodec:"AAC" , vcodec: "H.264" , vprofile: "Baseline", level: 3.0 },
   { itag: 22 , width: 1280, height: 720, container: "MP4" , acodec:"AAC" , vcodec: "H.264" , vprofile: "High" , level: 3.1 },
-  { itag: 34 , width: 640, height: 360, container: "FLV" , acodec:"AAC" , vcodec: "H.264" , vprofile: "Main" },
-  { itag: 35 , width: 854, height: 480, container: "FLV" , acodec:"AAC" , vcodec: "H.264" , vprofile: "Main" },
+  { itag: 34 , width: 640, height: 360, container: "FLV" , acodec:"AAC" , vcodec: "H.264" , vprofile: "Main" , level: 3.0 },
+  { itag: 35 , width: 854, height: 480, container: "FLV" , acodec:"AAC" , vcodec: "H.264" , vprofile: "Main" , level: 3.0 },
   { itag: 36 , width: 320, height: 240, container: "3GPP", acodec:"AAC" , vcodec: "MPEG-4", vprofile: "Simple" },
   { itag: 37 , width: 1920, height: 1080, container: "MP4" , acodec:"AAC" , vcodec: "H.264" , vprofile: "High" , level: 3.1 },
   { itag: 38 , width: 2048, height: 1536, container: "MP4" , acodec:"AAC" , vcodec: "H.264" , vprofile: "High" , level: 3.1 },
