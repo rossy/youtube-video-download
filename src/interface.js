@@ -126,6 +126,7 @@ var Interface = (function() {
 		formatBox.setAttribute("id", "ytd-format-box");
 		formatBox.style.display = "block";
 		formatBox.style.boxSizing = "border-box";
+		formatBox.style.MozBoxSizing = "border-box";
 		formatBox.style.width = "100%";
 		formatBox.addEventListener("input", function() {
 			localStorage["ytd-title-format"] = formatBox.value;

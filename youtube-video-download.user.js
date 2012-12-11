@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.3", hash = "9b2762d";
+  var version = "4.0.3", hash = "f00f9a2";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -614,6 +614,7 @@ var Interface = (function() {
   formatBox.setAttribute("id", "ytd-format-box");
   formatBox.style.display = "block";
   formatBox.style.boxSizing = "border-box";
+  formatBox.style.MozBoxSizing = "border-box";
   formatBox.style.width = "100%";
   formatBox.addEventListener("input", function() {
    localStorage["ytd-title-format"] = formatBox.value;
