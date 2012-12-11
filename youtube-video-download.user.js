@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.3", hash = "c1b59c8";
+  var version = "4.0.3", hash = "35bc6e3";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -359,6 +359,7 @@ var StreamMap = (function() {
   { itag: 101, width: 854, height: 480, container: "WebM", acodec:"Vorbis", vcodec: "VP8" , stereo3d: true },
   { itag: 102, width: 1280, height: 720, container: "WebM", acodec:"Vorbis", vcodec: "VP8" , stereo3d: true },
  ];
+ // Map containers to the order they sort in
  function containerToNum(container)
  {
   if (localStorage["ytd-prefer-webm"] == "true")
@@ -866,8 +867,10 @@ var Interface = (function() {
    } },
   ];
   buttonGroup.className = "yt-uix-button-group";
+  // Create the buttons
   self.dlButton = createDlButton();
   self.menuButton = createMenuButton();
+  // Create the dropdown menu
   self.menu = createMenu();
   self.menu.appendChild(createOptionsButton());
   self.menu.appendChild(self.options = createOptions());
@@ -876,14 +879,19 @@ var Interface = (function() {
   // Populate the button group
   buttonGroup.appendChild(self.dlButton);
   buttonGroup.appendChild(self.menuButton);
-  // If the like button is disabled, all the controls should be disabled
   if (watchLike)
   {
+   // If the like button is disabled, all the controls should be
+   // disabled
    self.dlButton.disabled = self.menuButton.disabled = watchLike.disabled;
+   // Add a space between the Like and Dislike buttons to make them
+   // consistent with the download button in Chrome
    watchDislike.parentNode.insertBefore(document.createTextNode(" "), watchDislike);
   }
   watchSentimentActions.appendChild(buttonGroup);
   if (watchLike && watchDislike)
+   // Reduce the margin between the Like and Dislike buttons, so the
+   // download button can fit
    watchLike.style.marginRight = watchDislike.style.marginRight = "2px";
  }
  function notifyUpdate()

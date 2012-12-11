@@ -448,9 +448,11 @@ var Interface = (function() {
 
 		buttonGroup.className = "yt-uix-button-group";
 
+		// Create the buttons
 		self.dlButton = createDlButton();
 		self.menuButton = createMenuButton();
 
+		// Create the dropdown menu
 		self.menu = createMenu();
 		self.menu.appendChild(createOptionsButton());
 		self.menu.appendChild(self.options = createOptions());
@@ -461,16 +463,22 @@ var Interface = (function() {
 		buttonGroup.appendChild(self.dlButton);
 		buttonGroup.appendChild(self.menuButton);
 
-		// If the like button is disabled, all the controls should be disabled
 		if (watchLike)
 		{
+			// If the like button is disabled, all the controls should be
+			// disabled
 			self.dlButton.disabled = self.menuButton.disabled = watchLike.disabled;
+
+			// Add a space between the Like and Dislike buttons to make them
+			// consistent with the download button in Chrome
 			watchDislike.parentNode.insertBefore(document.createTextNode(" "), watchDislike);
 		}
 
 		watchSentimentActions.appendChild(buttonGroup);
 
 		if (watchLike && watchDislike)
+			// Reduce the margin between the Like and Dislike buttons, so the
+			// download button can fit
 			watchLike.style.marginRight = watchDislike.style.marginRight = "2px";
 	}
 

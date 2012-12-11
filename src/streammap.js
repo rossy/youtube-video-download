@@ -35,6 +35,7 @@ var StreamMap = (function() {
 		{ itag: 102, width: 1280, height:  720, container: "WebM", acodec:"Vorbis", vcodec: "VP8"                                     , stereo3d: true },
 	];
 
+	// Map containers to the order they sort in
 	function containerToNum(container)
 	{
 		if (localStorage["ytd-prefer-webm"] == "true")
