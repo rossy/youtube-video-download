@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.3", hash = "fea7fe3";
+  var version = "4.0.3", hash = "c1b59c8";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -339,7 +339,7 @@ var StreamMap = (function() {
  // defaults for determining what is in the streams
  var defaultStreams = [
   { itag: 5 , width: 320, height: 240, container: "FLV" , acodec:"MP3" , vcodec: "H.263" },
-  { itag: 17 , width: 176, height: 144, container: "3GPP", acodec:"AAC" , vcodec: "MPEG-4" },
+  { itag: 17 , width: 176, height: 144, container: "3GPP", acodec:"AAC" , vcodec: "MPEG-4", vprofile: "Simple" },
   { itag: 18 , width: 640, height: 360, container: "MP4" , acodec:"AAC" , vcodec: "H.264" , vprofile: "Baseline", level: 3.0 },
   { itag: 22 , width: 1280, height: 720, container: "MP4" , acodec:"AAC" , vcodec: "H.264" , vprofile: "High" , level: 3.1 },
   { itag: 34 , width: 640, height: 360, container: "FLV" , acodec:"AAC" , vcodec: "H.264" , vprofile: "Main" , level: 3.0 },
