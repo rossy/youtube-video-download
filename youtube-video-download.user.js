@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.3", hash = "35bc6e3";
+  var version = "4.0.3", hash = "9f0c9c3";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -668,6 +668,7 @@ var Interface = (function() {
   elem.className = "yt-uix-button-menu";
   elem.style.display = "none";
   elem.style.fontSize = "12px";
+  elem.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.1)";
   return elem;
  }
  function formatTitle(stream)
