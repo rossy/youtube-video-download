@@ -92,25 +92,25 @@ var Interface = (function() {
 		elem.appendChild(createHeader(T("group-options")));
 
 		// Determine whether to check GitHub for updates every two days
-		elem.appendChild(createCheckbox(T("option-check"), localStorage["ytd-check-updates"] == "true", function (checked) {
+		elem.appendChild(createCheckbox(T("option-check"), String(localStorage["ytd-check-updates"]) == "true", function (checked) {
 			localStorage["ytd-check-updates"] = checked;
 		}));
 
 		// Prefer WebM over MP4
-		elem.appendChild(createCheckbox(T("option-webm"), localStorage["ytd-prefer-webm"] == "true", function (checked) {
+		elem.appendChild(createCheckbox(T("option-webm"), String(localStorage["ytd-prefer-webm"]) == "true", function (checked) {
 			localStorage["ytd-prefer-webm"] = checked;
 			update(lastStreams);
 		}));
 
 		// Use the preferred format for the download button
-		elem.appendChild(createCheckbox(T("option-restrict"), localStorage["ytd-restrict"] == "true", function (checked) {
+		elem.appendChild(createCheckbox(T("option-restrict"), String(localStorage["ytd-restrict"]) == "true", function (checked) {
 			localStorage["ytd-restrict"] = checked;
 			update(lastStreams);
 		}));
 
 		// Determine whether to get video file sizes (Chrome only)
 		if (window.chrome)
-			elem.appendChild(createCheckbox(T("option-sizes"), localStorage["ytd-get-sizes"] == "true", function (checked) {
+			elem.appendChild(createCheckbox(T("option-sizes"), String(localStorage["ytd-get-sizes"]) == "true", function (checked) {
 				localStorage["ytd-get-sizes"] = checked;
 			}));
 
@@ -208,7 +208,7 @@ var Interface = (function() {
 
 	function updateLink(href, target)
 	{
-		if (!window.chrome || localStorage["ytd-get-sizes"] != "true")
+		if (!window.chrome || String(localStorage["ytd-get-sizes"]) != "true")
 			return;
 
 		var data = { "href": href, target: target };
@@ -393,10 +393,10 @@ var Interface = (function() {
 			.sort(StreamMap.sortFunc);
 		links = [];
 
-		var preferredFormat = localStorage["ytd-prefer-webm"] == "true" ? "WebM" : "MP4";
+		var preferredFormat = String(localStorage["ytd-prefer-webm"]) == "true" ? "WebM" : "MP4";
 		var preferredStreams = streams.filter(function(obj) { return obj.container == preferredFormat; });
 
-		if (localStorage["ytd-restrict"] == "true" && preferredStreams.length)
+		if (String(localStorage["ytd-restrict"]) == "true" && preferredStreams.length)
 			setDlButton(preferredStreams[0]);
 		else if (streams.length)
 			setDlButton(streams[0]);

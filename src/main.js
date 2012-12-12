@@ -10,19 +10,19 @@
 
 function main()
 {
-	if (localStorage["ytd-check-updates"] === undefined)
+	if (localStorage.getItem("ytd-check-updates") === null)
 		localStorage["ytd-check-updates"] = true;
 
-	if (localStorage["ytd-prefer-webm"] === undefined)
+	if (localStorage.getItem("ytd-prefer-webm") === null)
 		localStorage["ytd-prefer-webm"] = false;
 
-	if (localStorage["ytd-restrict"] === undefined)
+	if (localStorage.getItem("ytd-restrict") === null)
 		localStorage["ytd-restrict"] = true;
 
-	if (localStorage["ytd-get-sizes"] === undefined)
+	if (localStorage.getItem("ytd-get-sizes") === null)
 		localStorage["ytd-get-sizes"] = false;
 
-	if (localStorage["ytd-title-format"] === undefined)
+	if (localStorage.getItem("ytd-title-format") === null)
 		localStorage["ytd-title-format"] = "${title}";
 
 	VideoInfo.init();
@@ -31,7 +31,7 @@ function main()
 	Interface.update(StreamMap.getStreams());
 
 #ifdef USO
-	if ((localStorage["ytd-check-updates"] == "true"))
+	if ((String(localStorage["ytd-check-updates"]) == "true"))
 		if (localStorage["ytd-current-version"] != version ||
 			!localStorage["ytd-last-update"] ||
 			Number(localStorage["ytd-last-update"]) < Date.now() - 2 * 24 * 60 * 60 * 1000)
@@ -41,7 +41,7 @@ function main()
 
 	localStorage["ytd-current-version"] = version;
 #else
-	if ((localStorage["ytd-check-updates"] == "true"))
+	if ((String(localStorage["ytd-check-updates"]) == "true"))
 		if (localStorage["ytd-current-sha1sum"] != hash ||
 			!localStorage["ytd-last-update"] ||
 			Number(localStorage["ytd-last-update"]) < Date.now() - 2 * 24 * 60 * 60 * 1000)

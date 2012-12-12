@@ -38,7 +38,7 @@ var StreamMap = (function() {
 	// Map containers to the order they sort in
 	function containerToNum(container)
 	{
-		if (localStorage["ytd-prefer-webm"] == "true")
+		if (String(localStorage["ytd-prefer-webm"]) == "true")
 			return {
 				"WebM": 1,
 				"MP4": 2,

@@ -2,7 +2,7 @@
 // @name           YouTube Video Download
 // @namespace      http://rossy2401.blogspot.com/
 // @description    Download videos from YouTube. Simple, lightweight and supports all formats, including WebM.
-// @version        4.0.3
+// @version        4.0.4
 // @author         rossy
 // @license        MIT License
 // @grant          none
@@ -73,7 +73,7 @@
  function script()
  {
 
-  var version = "4.0.3";
+  var version = "4.0.4";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -372,7 +372,7 @@ var StreamMap = (function() {
  // Map containers to the order they sort in
  function containerToNum(container)
  {
-  if (localStorage["ytd-prefer-webm"] == "true")
+  if (String(localStorage["ytd-prefer-webm"]) == "true")
    return {
     "WebM": 1,
     "MP4": 2,
@@ -597,22 +597,22 @@ var Interface = (function() {
   var elem = document.createElement("div");
   elem.appendChild(createHeader(T("group-options")));
   // Determine whether to check GitHub for updates every two days
-  elem.appendChild(createCheckbox(T("option-check"), localStorage["ytd-check-updates"] == "true", function (checked) {
+  elem.appendChild(createCheckbox(T("option-check"), String(localStorage["ytd-check-updates"]) == "true", function (checked) {
    localStorage["ytd-check-updates"] = checked;
   }));
   // Prefer WebM over MP4
-  elem.appendChild(createCheckbox(T("option-webm"), localStorage["ytd-prefer-webm"] == "true", function (checked) {
+  elem.appendChild(createCheckbox(T("option-webm"), String(localStorage["ytd-prefer-webm"]) == "true", function (checked) {
    localStorage["ytd-prefer-webm"] = checked;
    update(lastStreams);
   }));
   // Use the preferred format for the download button
-  elem.appendChild(createCheckbox(T("option-restrict"), localStorage["ytd-restrict"] == "true", function (checked) {
+  elem.appendChild(createCheckbox(T("option-restrict"), String(localStorage["ytd-restrict"]) == "true", function (checked) {
    localStorage["ytd-restrict"] = checked;
    update(lastStreams);
   }));
   // Determine whether to get video file sizes (Chrome only)
   if (window.chrome)
-   elem.appendChild(createCheckbox(T("option-sizes"), localStorage["ytd-get-sizes"] == "true", function (checked) {
+   elem.appendChild(createCheckbox(T("option-sizes"), String(localStorage["ytd-get-sizes"]) == "true", function (checked) {
     localStorage["ytd-get-sizes"] = checked;
    }));
   // Add box for setting the format string
@@ -688,7 +688,7 @@ var Interface = (function() {
  }
  function updateLink(href, target)
  {
-  if (!window.chrome || localStorage["ytd-get-sizes"] != "true")
+  if (!window.chrome || String(localStorage["ytd-get-sizes"]) != "true")
    return;
   var data = { "href": href, target: target };
   var event = document.createEvent("MessageEvent");
@@ -833,9 +833,9 @@ var Interface = (function() {
    .filter(function(obj) { return obj.url; })
    .sort(StreamMap.sortFunc);
   links = [];
-  var preferredFormat = localStorage["ytd-prefer-webm"] == "true" ? "WebM" : "MP4";
+  var preferredFormat = String(localStorage["ytd-prefer-webm"]) == "true" ? "WebM" : "MP4";
   var preferredStreams = streams.filter(function(obj) { return obj.container == preferredFormat; });
-  if (localStorage["ytd-restrict"] == "true" && preferredStreams.length)
+  if (String(localStorage["ytd-restrict"]) == "true" && preferredStreams.length)
    setDlButton(preferredStreams[0]);
   else if (streams.length)
    setDlButton(streams[0]);
@@ -941,20 +941,20 @@ var Update = (function() {
 })();
 function main()
 {
- if (localStorage["ytd-check-updates"] === undefined)
+ if (localStorage.getItem("ytd-check-updates") === null)
   localStorage["ytd-check-updates"] = true;
- if (localStorage["ytd-prefer-webm"] === undefined)
+ if (localStorage.getItem("ytd-prefer-webm") === null)
   localStorage["ytd-prefer-webm"] = false;
- if (localStorage["ytd-restrict"] === undefined)
+ if (localStorage.getItem("ytd-restrict") === null)
   localStorage["ytd-restrict"] = true;
- if (localStorage["ytd-get-sizes"] === undefined)
+ if (localStorage.getItem("ytd-get-sizes") === null)
   localStorage["ytd-get-sizes"] = false;
- if (localStorage["ytd-title-format"] === undefined)
+ if (localStorage.getItem("ytd-title-format") === null)
   localStorage["ytd-title-format"] = "${title}";
  VideoInfo.init();
  Interface.init();
  Interface.update(StreamMap.getStreams());
- if ((localStorage["ytd-check-updates"] == "true"))
+ if ((String(localStorage["ytd-check-updates"]) == "true"))
   if (localStorage["ytd-current-version"] != version ||
    !localStorage["ytd-last-update"] ||
    Number(localStorage["ytd-last-update"]) < Date.now() - 2 * 24 * 60 * 60 * 1000)
