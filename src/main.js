@@ -1,6 +1,7 @@
 #import "videoinfo.js"
 #import "interface.js"
 #import "streammap.js"
+#import "audio.js"
 
 #ifdef USO
 #import "update-uso.js"
@@ -28,7 +29,10 @@ function main()
 	VideoInfo.init();
 	Interface.init();
 
-	Interface.update(StreamMap.getStreams());
+	if (Audio.present)
+		Interface.update(Audio.addStreams(StreamMap.getStreams()));
+	else
+		Interface.update(StreamMap.getStreams());
 
 #ifdef USO
 	if ((String(localStorage["ytd-check-updates"]) == "true"))

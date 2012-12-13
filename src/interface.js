@@ -1,5 +1,6 @@
 #import "languages.js"
 #import "streammap.js"
+#import "audio.js"
 
 // Interface - Handles the user interface for the watch page
 var Interface = (function() {
@@ -280,8 +281,13 @@ var Interface = (function() {
 			subLink.setAttribute("id", "ytd-" + subId);
 			subLink.setAttribute("title", formatTitle(streams[i]));
 
-			links.push({ stream: streams[i], anchor: subLink });
-			updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
+			if (streams[i].audio)
+				Audio.updateLink(streams[i], subLink);
+			else
+			{
+				links.push({ stream: streams[i], anchor: subLink });
+				updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
+			}
 
 			subLink.style.display = "block";
 			subLink.style.position = "absolute";
@@ -298,7 +304,9 @@ var Interface = (function() {
 			}, false);
 
 			// Append the sublink to the button group
-			subLink.appendChild(document.createTextNode((streams[i].stereo3d ? "3D " : "") + streams[i].container));
+			subLink.appendChild(document.createTextNode(
+				(streams[i].audio ? streams[i].acodec : (streams[i].stereo3d ? "3D " : "") + streams[i].container)
+			));
 			itemGroup.appendChild(subLink);
 		}
 

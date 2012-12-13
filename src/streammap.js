@@ -57,6 +57,12 @@ var StreamMap = (function() {
 	// sortFunc(a, b) - Sort streams from best to worst
 	function sortFunc(a, b)
 	{
+		// Make sure audio streams always sort last
+		if (a.audio && !b.audio)
+			return 1;
+		else if (!a.audio && b.audio)
+			return -1;
+
 		if (a.height && b.height && a.height != b.height)
 			return b.height - a.height;
 
@@ -215,7 +221,8 @@ var StreamMap = (function() {
 			"WebM": ".webm",
 			"3GPP": ".3gp",
 			"FLV": ".flv",
-		}[stream.container] || "";
+			"AAC": ".m4a",
+		}[stream.audio ? stream.acodec : stream.container] || "";
 	}
 
 	return self;
