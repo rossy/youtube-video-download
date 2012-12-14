@@ -45,6 +45,12 @@ var VideoInfo = (function() {
 			}
 		);
 
+		self.video_id = Try.all(
+			function() {
+				return new URI(document.location.href).query.v;
+			}
+		);
+
 		if (self.date)
 		{
 			self.day = ("0" + self.date.getDate()).match(/..$/)[0];
