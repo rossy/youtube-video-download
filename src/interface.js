@@ -53,7 +53,7 @@ var Interface = (function() {
 	}
 
 	// createCheckbox(text) - Creates a YouTube uix checkbox
-	function createCheckbox(text, checked, callback)
+	function createCheckbox(labelText, checked, callback)
 	{
 		var label = document.createElement("label"),
 		    span = document.createElement("span"),
@@ -79,7 +79,35 @@ var Interface = (function() {
 		label.style.display = "block";
 		label.style.paddingRight = "13px";
 		label.appendChild(span);
-		label.appendChild(document.createTextNode(text));
+		label.appendChild(document.createTextNode(labelText));
+
+		return label;
+	}
+
+	function createTextBox(labelText, text, callback)
+	{
+		var label = document.createElement("label"),
+		    container = document.createElement("div"),
+		    box = document.createElement("input");
+
+		container.style.margin = "6px 13px";
+
+		box.className = "yt-uix-form-input-text";
+		box.value = text;
+		box.style.display = "block";
+		box.style.boxSizing = "border-box";
+		box.style.MozBoxSizing = "border-box";
+		box.style.width = "100%";
+		box.addEventListener("input", function() {
+			callback(box.value);
+		});
+
+		label.style.display = "block";
+		label.style.margin = "6px";
+		label.appendChild(document.createTextNode(labelText));
+		label.appendChild(document.createElement("br"));
+		label.appendChild(container);
+		container.appendChild(box);
 
 		return label;
 	}
@@ -114,33 +142,17 @@ var Interface = (function() {
 				localStorage["ytd-get-sizes"] = checked;
 			}));
 
-		// Add box for setting the format string
-		var formatLabel = document.createElement("label"),
-		    formatDiv = document.createElement("div"),
-		    formatBox = document.createElement("input");
-
-		formatDiv.style.margin = "6px 13px";
-
-		formatBox.className = "yt-uix-form-input-text";
-		formatBox.value = localStorage["ytd-title-format"];
-		formatBox.setAttribute("id", "ytd-format-box");
-		formatBox.style.display = "block";
-		formatBox.style.boxSizing = "border-box";
-		formatBox.style.MozBoxSizing = "border-box";
-		formatBox.style.width = "100%";
-		formatBox.addEventListener("input", function() {
-			localStorage["ytd-title-format"] = formatBox.value;
+		// Title format
+		elem.appendChild(createTextBox(T("option-format"), localStorage["ytd-title-format"], function (text) {
+			localStorage["ytd-title-format"] = text;
 			updateLinks();
-		});
+		}));
 
-		formatLabel.setAttribute("for", "ytd-format-box");
-		formatLabel.style.display = "block";
-		formatLabel.style.margin = "6px";
-		formatLabel.appendChild(document.createTextNode(T("option-format")));
-
-		elem.appendChild(formatLabel);
-		formatDiv.appendChild(formatBox);
-		elem.appendChild(formatDiv);
+		// Favourite itags
+		elem.appendChild(createTextBox(T("option-itags"), localStorage["ytd-itags"], function (text) {
+			localStorage["ytd-itags"] = text.split(",").map(Number).filter(identity).map(Math.floor).join(", ");
+			update(lastStreams);
+		}));
 
 		elem.style.display = "none";
 
@@ -196,6 +208,8 @@ var Interface = (function() {
 		elem.style.display = "none";
 		elem.style.fontSize = "12px";
 		elem.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.1)";
+		elem.style.maxHeight = "100%";
+		elem.style.overflowX = "hidden";
 
 		return elem;
 	}
@@ -280,8 +294,13 @@ var Interface = (function() {
 			subLink.setAttribute("id", "ytd-" + subId);
 			subLink.setAttribute("title", formatTitle(streams[i]));
 
-			links.push({ stream: streams[i], anchor: subLink });
-			updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
+			if (streams[i].audio)
+				Audio.updateLink(streams[i], subLink);
+			else
+			{
+				links.push({ stream: streams[i], anchor: subLink });
+				updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
+			}
 
 			subLink.style.display = "block";
 			subLink.style.position = "absolute";
@@ -298,7 +317,9 @@ var Interface = (function() {
 			}, false);
 
 			// Append the sublink to the button group
-			subLink.appendChild(document.createTextNode((streams[i].stereo3d ? "3D " : "") + streams[i].container));
+			subLink.appendChild(document.createTextNode(
+				(streams[i].audio ? streams[i].acodec : (streams[i].stereo3d ? "3D " : "") + streams[i].container)
+			));
 			itemGroup.appendChild(subLink);
 		}
 
@@ -393,10 +414,20 @@ var Interface = (function() {
 			.sort(StreamMap.sortFunc);
 		links = [];
 
+		var favouriteItags = localStorage["ytd-itags"].split(",").map(Number);
+		var favouriteStreams =
+			streams
+				.filter(function(obj) {
+					return (obj.favouriteIndex = favouriteItags.indexOf(Number(obj.itag))) + 1;
+				})
+				.sort(function(a, b) { return a.favouriteIndex - b.favouriteIndex; });
+
 		var preferredFormat = String(localStorage["ytd-prefer-webm"]) == "true" ? "WebM" : "MP4";
 		var preferredStreams = streams.filter(function(obj) { return obj.container == preferredFormat; });
 
-		if (String(localStorage["ytd-restrict"]) == "true" && preferredStreams.length)
+		if (favouriteStreams.length)
+			setDlButton(favouriteStreams[0]);
+		else if (String(localStorage["ytd-restrict"]) == "true" && preferredStreams.length)
 			setDlButton(preferredStreams[0]);
 		else if (streams.length)
 			setDlButton(streams[0]);

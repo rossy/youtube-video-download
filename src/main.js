@@ -25,6 +25,9 @@ function main()
 	if (localStorage.getItem("ytd-title-format") === null)
 		localStorage["ytd-title-format"] = "${title}";
 
+	if (localStorage.getItem("ytd-itags") === null)
+		localStorage["ytd-itags"] = "";
+
 	VideoInfo.init();
 	Interface.init();
 
