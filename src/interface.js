@@ -130,12 +130,6 @@ var Interface = (function() {
 			update(lastStreams);
 		}));
 
-		// Use the preferred format for the download button
-		elem.appendChild(createCheckbox(T("option-restrict"), String(localStorage["ytd-restrict"]) == "true", function (checked) {
-			localStorage["ytd-restrict"] = checked;
-			update(lastStreams);
-		}));
-
 		// Determine whether to get video file sizes (Chrome only)
 		if (window.chrome)
 			elem.appendChild(createCheckbox(T("option-sizes"), String(localStorage["ytd-get-sizes"]) == "true", function (checked) {
@@ -422,13 +416,8 @@ var Interface = (function() {
 				})
 				.sort(function(a, b) { return a.favouriteIndex - b.favouriteIndex; });
 
-		var preferredFormat = String(localStorage["ytd-prefer-webm"]) == "true" ? "WebM" : "MP4";
-		var preferredStreams = streams.filter(function(obj) { return obj.container == preferredFormat; });
-
 		if (favouriteStreams.length)
 			setDlButton(favouriteStreams[0]);
-		else if (String(localStorage["ytd-restrict"]) == "true" && preferredStreams.length)
-			setDlButton(preferredStreams[0]);
 		else if (streams.length)
 			setDlButton(streams[0]);
 		else

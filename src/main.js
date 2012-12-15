@@ -16,9 +16,6 @@ function main()
 	if (localStorage.getItem("ytd-prefer-webm") === null)
 		localStorage["ytd-prefer-webm"] = false;
 
-	if (localStorage.getItem("ytd-restrict") === null)
-		localStorage["ytd-restrict"] = true;
-
 	if (localStorage.getItem("ytd-get-sizes") === null)
 		localStorage["ytd-get-sizes"] = false;
 
@@ -26,7 +23,7 @@ function main()
 		localStorage["ytd-title-format"] = "${title}";
 
 	if (localStorage.getItem("ytd-itags") === null)
-		localStorage["ytd-itags"] = "";
+		localStorage["ytd-itags"] = "37, 22, 18";
 
 	VideoInfo.init();
 	Interface.init();
