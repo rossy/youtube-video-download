@@ -222,17 +222,10 @@ var Interface = (function() {
 		itemGroup.className = "ytd-item-group";
 		itemGroup.style.minWidth = streams.length * 64 + 48 + "px";
 
-		itemGroup.addEventListener("mouseover", function() {
-			itemGroup.style.backgroundColor = "rgba(0, 0, 0, 0.05)";
-		}, false);
-		itemGroup.addEventListener("mouseout", function() {
-			itemGroup.style.backgroundColor = "";
-		}, false);
-
 		size.className = "ytd-item-size yt-uix-button-menu-item";
 
 		// Create the main video link
-		mainLink.className = "ytd-item-main yt-uix-button-menu-item";
+		mainLink.className = "ytd-item ytd-item-main yt-uix-button-menu-item";
 		mainLink.setAttribute("id", "ytd-" + mainId);
 		mainLink.setAttribute("title", formatTitle(streams[0]));
 
