@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.7", hash = "7f52404";
+  var version = "4.0.7", hash = "535a170";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -540,9 +540,8 @@ var Interface = (function() {
  {
   var elem = document.createElement("a"),
    optionsOpen = false;
+  elem.setAttribute("id", "ytd-options-button");
   elem.setAttribute("href", "javascript:;");
-  elem.style.position = "absolute";
-  elem.style.right = elem.style.top = "8px";
   elem.innerHTML = T("button-options");
   elem.addEventListener("click", function() {
    optionsOpen = !optionsOpen;
@@ -555,10 +554,7 @@ var Interface = (function() {
  function createHeader(text)
  {
   var elem = document.createElement("div");
-  elem.style.padding = "2px 13px";
-  elem.style.fontWeight = "bold";
-  elem.style.borderBottom = "1px solid #999";
-  elem.style.paddingTop = "5px";
+  elem.className = "ytd-header";
   elem.appendChild(document.createTextNode(text));
   return elem;
  }
@@ -569,8 +565,8 @@ var Interface = (function() {
       span = document.createElement("span"),
       checkbox = document.createElement("input"),
       elem = document.createElement("span");
-  span.className = "yt-uix-form-input-checkbox-container" + (checked ? "  checked" : "");
-  span.style.margin = "6px 6px 6px 13px";
+  label.className = "ytd-checkbox-label";
+  span.className = "ytd-checkbox-container yt-uix-form-input-checkbox-container" + (checked ? "  checked" : "");
   checkbox.className = "yt-uix-form-input-checkbox";
   checkbox.setAttribute("type", "checkbox");
   checkbox.checked = !!checked;
@@ -580,8 +576,6 @@ var Interface = (function() {
   elem.className = "yt-uix-form-input-checkbox-element";
   span.appendChild(checkbox);
   span.appendChild(elem);
-  label.style.display = "block";
-  label.style.paddingRight = "13px";
   label.appendChild(span);
   label.appendChild(document.createTextNode(labelText));
   return label;
@@ -591,18 +585,13 @@ var Interface = (function() {
   var label = document.createElement("label"),
       container = document.createElement("div"),
       box = document.createElement("input");
-  container.style.margin = "6px 13px";
+  container.className = "ytd-textbox-container";
   box.className = "yt-uix-form-input-text";
   box.value = text;
-  box.style.display = "block";
-  box.style.boxSizing = "border-box";
-  box.style.MozBoxSizing = "border-box";
-  box.style.width = "100%";
   box.addEventListener("input", function() {
    callback(box.value);
   });
-  label.style.display = "block";
-  label.style.margin = "6px";
+  label.className = "ytd-textbox-label";
   label.appendChild(document.createTextNode(labelText));
   label.appendChild(document.createElement("br"));
   label.appendChild(container);
@@ -613,6 +602,7 @@ var Interface = (function() {
  function createOptions()
  {
   var elem = document.createElement("div");
+  elem.setAttribute("id", "ytd-options");
   elem.appendChild(createHeader(T("group-options")));
   // Determine whether to check GitHub for updates every two days
   elem.appendChild(createCheckbox(T("option-check"), String(localStorage["ytd-check-updates"]) == "true", function (checked) {
@@ -648,11 +638,10 @@ var Interface = (function() {
       elem = document.createElement("button");
   link.setAttribute("href", "javascript:;");
   elem.className = "start yt-uix-button yt-uix-button-hh-text yt-uix-tooltip";
+  elem.setAttribute("id", "ytd-dl-button");
   elem.setAttribute("title", T("download-button-tip"));
   elem.setAttribute("type", "button");
   elem.setAttribute("role", "button");
-  elem.style.marginRight = "-1px";
-  elem.style.borderTopRightRadius = elem.style.borderBottomRightRadius = "0px";
   elem.innerHTML = "<span class=\"yt-uix-button-content\">" + T("download-button-text") + "</span>";
   link.appendChild(elem);
   return link;
@@ -662,13 +651,12 @@ var Interface = (function() {
  {
   var elem = document.createElement("button");
   elem.className = "end yt-uix-button yt-uix-button-hh-text yt-uix-button-empty yt-uix-tooltip";
+  elem.setAttribute("id", "ytd-menu-button");
   elem.setAttribute("title", T("menu-button-tip"));
   elem.setAttribute("type", "button");
   elem.setAttribute("role", "button");
   elem.setAttribute("onclick", "; return false;");
-  elem.style.marginRight = "0px";
-  elem.style.borderTopLeftRadius = elem.style.borderBottomLeftRadius = "0px";
-  elem.innerHTML = "<img class=\"yt-uix-button-arrow\" style=\"margin: 0;\" src=\"//s.ytimg.com/yt/img/pixel-vfl73.gif\" alt=\"\">";
+  elem.innerHTML = "<img class=\"yt-uix-button-arrow\" src=\"//s.ytimg.com/yt/img/pixel-vfl73.gif\" alt=\"\">";
   return elem;
  }
  // createMenu() - Creates the downloads menu
@@ -676,11 +664,8 @@ var Interface = (function() {
  {
   var elem = document.createElement("div");
   elem.className = "yt-uix-button-menu";
+  elem.setAttribute("id", "ytd-menu");
   elem.style.display = "none";
-  elem.style.fontSize = "12px";
-  elem.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.1)";
-  elem.style.maxHeight = "100%";
-  elem.style.overflowX = "hidden";
   return elem;
  }
  function formatTitle(stream)
@@ -705,7 +690,7 @@ var Interface = (function() {
       size = document.createElement("div"),
       mainLink = document.createElement("a"),
       mainId = nextId ++;
-  itemGroup.style.position = "relative";
+  itemGroup.className = "ytd-item-group";
   itemGroup.style.minWidth = streams.length * 64 + 48 + "px";
   itemGroup.addEventListener("mouseover", function() {
    itemGroup.style.backgroundColor = "rgba(0, 0, 0, 0.05)";
@@ -713,25 +698,14 @@ var Interface = (function() {
   itemGroup.addEventListener("mouseout", function() {
    itemGroup.style.backgroundColor = "";
   }, false);
-  size.className = "yt-uix-button-menu-item";
-  size.style.textAlign = "right";
-  size.style.width = "55px";
-  size.style.position = "absolute";
-  size.style.left = "0px";
-  size.style.top = "0px";
-  size.style.paddingLeft = size.style.paddingRight = "0px";
-  size.style.paddingTop = size.style.paddingBottom = "8px";
-  size.style.color = "inherit";
+  size.className = "ytd-item-size yt-uix-button-menu-item";
   // Create the main video link
-  mainLink.className = "yt-uix-button-menu-item";
+  mainLink.className = "ytd-item-main yt-uix-button-menu-item";
   mainLink.setAttribute("id", "ytd-" + mainId);
   mainLink.setAttribute("title", formatTitle(streams[0]));
   links.push({ stream: streams[0], anchor: mainLink });
   updateLink(StreamMap.getURL(streams[0]), "ytd-" + mainId);
-  mainLink.style.display = "block";
-  mainLink.style.paddingLeft = "55px";
   mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
-  mainLink.style.paddingTop = mainLink.style.paddingBottom = "8px";
   mainLink.addEventListener("contextmenu", function(e) {
    // Prevent right-click closing the menu in Chrome
    e.stopPropagation();
@@ -746,7 +720,7 @@ var Interface = (function() {
   {
    var subLink = document.createElement("a"),
        subId = nextId ++;
-   subLink.className = "yt-uix-button-menu-item";
+   subLink.className = "ytd-item-sub yt-uix-button-menu-item";
    subLink.setAttribute("id", "ytd-" + subId);
    subLink.setAttribute("title", formatTitle(streams[i]));
    if (streams[i].audio)
@@ -756,14 +730,7 @@ var Interface = (function() {
     links.push({ stream: streams[i], anchor: subLink });
     updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
    }
-   subLink.style.display = "block";
-   subLink.style.position = "absolute";
    subLink.style.right = (streams.length - i - 1) * 64 + "px";
-   subLink.style.top = "0px";
-   subLink.style.width = "53px";
-   subLink.style.paddingLeft = subLink.style.paddingRight = "5px";
-   subLink.style.borderLeft = "1px solid #DDD";
-   subLink.style.paddingTop = subLink.style.paddingBottom = "8px";
    subLink.addEventListener("contextmenu", function(e) {
     // Prevent right-click closing the menu in Chrome
     e.stopPropagation();
@@ -808,8 +775,7 @@ var Interface = (function() {
   var elem = document.createElement("div");
   elem.appendChild(createHeader(T("group-update")));
   var a = document.createElement("a");
-  a.className = "yt-uix-button-menu-item";
-  a.style.paddingTop = a.style.paddingBottom = "8px";
+  a.className = "ytd-item-update yt-uix-button-menu-item";
   a.setAttribute("href", "https://github.com/rossy2401/youtube-video-download/raw/master/youtube-video-download.user.js");
   a.appendChild(document.createTextNode(T("button-update")));
   elem.appendChild(a);
@@ -914,10 +880,6 @@ var Interface = (function() {
    watchDislike.parentNode.insertBefore(document.createTextNode(" "), watchDislike);
   }
   watchSentimentActions.appendChild(buttonGroup);
-  if (watchLike && watchDislike)
-   // Reduce the margin between the Like and Dislike buttons, so the
-   // download button can fit
-   watchLike.style.marginRight = watchDislike.style.marginRight = "2px";
  }
  function notifyUpdate()
  {
@@ -925,6 +887,20 @@ var Interface = (function() {
  }
  return self;
 })();
+var Styles = (function() {
+ var self = {
+  injectStyle: injectStyle,
+ };
+ function injectStyle(text)
+ {
+  var style = document.createElement("style");
+  style.setAttribute("type", "text/css");
+  style.textContent = text;
+  document.head.appendChild(style);
+ }
+ return self;
+})();
+Styles.styles = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-right: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-right: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-right: -1px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;right: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-size {position: absolute;left: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: right;color: inherit;}#ytd-menu .ytd-item-main {display: block;padding: 8px 0px 8px 55px;}#ytd-menu .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-left: 1px solid #DDD;padding: 8px 5px;}#ytd-menu .ytd-item-update {padding: 8px 5px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
 // Update - Check GitHub for updates
 var Update = (function() {
  self = {
@@ -997,6 +973,7 @@ function main()
   localStorage["ytd-itags"] = "37, 22, 18";
  VideoInfo.init();
  Interface.init();
+ Styles.injectStyle(Styles.styles);
  Interface.update(StreamMap.getStreams());
  if ((String(localStorage["ytd-check-updates"]) == "true"))
   if (localStorage["ytd-current-sha1sum"] != hash ||
