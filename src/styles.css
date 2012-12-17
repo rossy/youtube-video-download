@@ -8,6 +8,14 @@
 	margin-right: 0px;
 }
 
+#watch7-secondary-actions .yt-uix-button {
+	margin-left: 7px;
+}
+
+#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {
+	margin-left: 0px;
+}
+
 #watch7-sentiment-actions #ytd-dl-button {
 	margin-right: -1px;
 	border-top-right-radius: 0px;
