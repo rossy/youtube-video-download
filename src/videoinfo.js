@@ -51,6 +51,12 @@ var VideoInfo = (function() {
 			}
 		);
 
+		self.seconds = Try.all(
+			function() {
+				return Math.floor(Number(yt.playerConfig.args.length_seconds));
+			}
+		);
+
 		if (self.date)
 		{
 			self.day = ("0" + self.date.getDate()).match(/..$/)[0];
@@ -61,6 +67,9 @@ var VideoInfo = (function() {
 				return self.year + "-" + self.month + "-" + self.day;
 			};
 		}
+
+		if (self.seconds)
+			self.duration = Math.floor(self.seconds / 60) + ":" + self.seconds % 60;
 	}
 
 	return self;

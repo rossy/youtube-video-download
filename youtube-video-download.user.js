@@ -63,7 +63,7 @@
  function script()
  {
 
-  var version = "4.0.7", hash = "e5804e9";
+  var version = "4.0.7", hash = "ab62c94";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -302,6 +302,11 @@ var VideoInfo = (function() {
     return new URI(document.location.href).query.v;
    }
   );
+  self.seconds = Try.all(
+   function() {
+    return Math.floor(Number(yt.playerConfig.args.length_seconds));
+   }
+  );
   if (self.date)
   {
    self.day = ("0" + self.date.getDate()).match(/..$/)[0];
@@ -311,6 +316,8 @@ var VideoInfo = (function() {
     return self.year + "-" + self.month + "-" + self.day;
    };
   }
+  if (self.seconds)
+   self.duration = Math.floor(self.seconds / 60) + ":" + self.seconds % 60;
  }
  return self;
 })();
