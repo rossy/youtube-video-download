@@ -4,6 +4,7 @@
 // @description    Download videos from YouTube. Simple, lightweight and supports all formats, including WebM.
 // @version        VERSION
 // @author         rossy
+// @icon           data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACC0lEQVR4Xu3TT2sTURQF8LtR88eMTgU/gOA3UNwoaLtw6yJYcaeCC3Er7hT3VlGhCMaC4CIoFAKKtqJYQ8XguOgEk0WCk8AsMsUsEmigSeF4Lg9KCMTORGm6yIXfu8Od+w6BJDKpiT2jMJW8SR/JIVUn/Cf1vtxFOi399Y1Dwi7LitbXqWSaMCZpydvJLGFMsrJiJwqEMSnIJzvhE8bElw92YosQVq/XQ1d1u+h1TTfMnDtRbMn7wwlE0el0BmxoNzY6iJonb3lE0W610Wq32Vumt1vKzDmLmic5HlE0m80hfmtH1DxZ5DGUncTn9AWsXEpvC4IGgkaARtAg0wP2wPTtvS+XL+pdzRieT/L6UBzDvLJiyJ6fge/7I+FdzdCsoSTL428epw7g7sw5eLUaPE95qNVUzfAMzviOzAx3eEfv7pQvL3ns5AGDbp06iZ9ra6hWKqgMqppeJe5w94TeQZhsecEjjIepGG4cP4bV5SWUS2WUy6qEknYDq0vLuqO7CJsrC1Z8kxDGEwZfP3oEuecZuEUXrltE0XUVcgsZfac7uhvWpjyz4nVCWPP6IeL7cP/aVfxwvsNxHD5f0Zm+050ofslTK54nRHU7wd/F2TNKn3U2irzMW7EMYRT3Du5XOhtVRvidTRPGZFq0HqVic4RdNif9xb/OLL0hp8864R+tD2S+o1nZKzUxqT/sC28zrWX8pAAAAABJRU5ErkJggg==
 // @license        MIT License
 // @grant          none
 // @updateURL      https://userscripts.org/scripts/source/62634.user.js
