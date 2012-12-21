@@ -9,12 +9,10 @@ var Interface = (function() {
 		notifyUpdate: notifyUpdate,
 	};
 
-	var groups;
-	var lastStreams;
-
-	var links = [];
-
-	var nextId = 0;
+	var groups,
+	    lastStreams,
+	    links = [],
+	    nextId = 0;
 
 	// createOptionsButton() - Creates the button that opens the options menu
 	function createOptionsButton()
@@ -78,7 +76,8 @@ var Interface = (function() {
 		return label;
 	}
 
-	function createTextBox(labelText, text, callback)
+	// createTextbox(text) - Creates a YouTube uix textbox
+	function createTextbox(labelText, text, callback)
 	{
 		var label = document.createElement("label"),
 		    container = document.createElement("div"),
@@ -127,13 +126,13 @@ var Interface = (function() {
 			}));
 
 		// Title format
-		elem.appendChild(createTextBox(T("option-format"), localStorage["ytd-title-format"], function (text) {
+		elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], function (text) {
 			localStorage["ytd-title-format"] = text;
 			updateLinks();
 		}));
 
 		// Favourite itags
-		elem.appendChild(createTextBox(T("option-itags"), localStorage["ytd-itags"], function (text) {
+		elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], function (text) {
 			localStorage["ytd-itags"] = text.split(",").map(Number).filter(identity).map(Math.floor).join(", ");
 			update(lastStreams);
 		}));
@@ -193,12 +192,15 @@ var Interface = (function() {
 		return elem;
 	}
 
+	// formatTitle(stream) - Format stream information for the tooltips
 	function formatTitle(stream)
 	{
-		return (stream.vcodec ? stream.vcodec + "/" + stream.acodec : "") +
+		return "Format " + stream.itag + ", " + (stream.vcodec ? stream.vcodec + "/" + stream.acodec : "") +
 			(stream.vprofile ? " (" + stream.vprofile + (stream.level ? "@L" + stream.level.toFixed(1) : "") + ")" : "");
 	}
 
+	// updateLink(href, target) - Informs the privileged extension code that a
+	// new link has been added
 	function updateLink(href, target)
 	{
 		if (!window.chrome || String(localStorage["ytd-get-sizes"]) != "true")
@@ -457,6 +459,7 @@ var Interface = (function() {
 		watchSentimentActions.appendChild(buttonGroup);
 	}
 
+	// notifyUpdate() - Notify the user of an available update
 	function notifyUpdate()
 	{
 		self.menu.appendChild(createUpdate());

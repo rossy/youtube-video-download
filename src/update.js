@@ -2,7 +2,7 @@
 
 // Update - Check GitHub for updates
 var Update = (function() {
-	self = {
+	var self = {
 		check: check,
 	};
 

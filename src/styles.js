@@ -3,6 +3,7 @@ var Styles = (function() {
 		injectStyle: injectStyle,
 	};
 
+	// injectStyle(text) - Add a stylesheet to the page's head
 	function injectStyle(text)
 	{
 		var style = document.createElement("style");
