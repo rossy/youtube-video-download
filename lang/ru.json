@@ -3,24 +3,30 @@
 
 	"credit0-name": "lmiol",
 	"credit0-url": "http://userscripts.org/users/121962",
+	"credit1-name": "Ареопагит",
+	"credit1-url": "http://userscripts.org/users/155252",
 
-	"download-button-tip": "Сохранить на жесткий диск",
+	"download-button-tip": "Скачать видео",
 	"download-button-text": "Скачать",
-	"menu-button-tip": "Выберите формат для загрузки",
+	"menu-button-tip": "Выбрать формат для загрузки",
+	"format-tip": "Формат ",
 
 	"group-options": "Настройки",
 	"group-high-definition": "Высокое разрешение",
 	"group-standard-definition": "Стандартное разрешение",
-	"group-mobile": "Mobile",
+	"group-mobile": "Для телефона",
 	"group-unknown": "Неизвестный формат",
 	"group-update": "Доступна новая версия YouTube Video Download",
 
-	"option-check": "Проверить обновления",
-	"option-format": "Формат заголовка",
+	"option-check": "Проверять обновления",
+	"option-webm": "Предпочтение WebM",
+	"option-sizes": "Получить размер видеофайла",
+	"option-format": "Шаблон имени файла:",
+	"option-itags": "Любимые форматы:",
 
-	"button-options": "настройки",
-	"button-options-close": "close",
+	"button-options": "Настройки",
+	"button-options-close": "Скрыть",
 	"button-update": "Нажмите тут для обновления",
 
-	"error-no-downloads": "Нет загружаемых допустимых форматов"
+	"error-no-downloads": "Нет допустимых форматов для загрузки"
 }
