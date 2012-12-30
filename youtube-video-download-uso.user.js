@@ -931,6 +931,8 @@ var Update = (function() {
   delete localStorage["ytd-update-version"];
   delete localStorage["ytd-last-update"];
   window.addEventListener("message", function(event) {
+   if (!event.data)
+    return;
    var remoteVersion = /^\/\/ @version\s+(.+)$/m.exec(event.data)[1];
    if (remoteVersion)
    {
