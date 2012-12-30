@@ -6,21 +6,23 @@
 
 	"download-button-tip": "Video auf der Festplatte speichern",
 	"download-button-text": "Download",
-	"menu-button-tip": "Download Format wählen",
+	"menu-button-tip": "Weitere Formate wählen",
 
 	"group-options": "Einstellungen",
-	"group-high-definition": "HD",
+	"group-high-definition": "Hohe Auflösung",
 	"group-standard-definition": "Standard Auflösung",
-	"group-mobile": "Mobile",
+	"group-mobile": "Mobil",
 	"group-unknown": "Unbekanntes Format",
-	"group-update": "Eine neue Version von YouTube Video Download steht zur Verfügung",
+	"group-update": "Eine neue Version steht zur Verfügung",
 
 	"option-check": "Auf neue Version überprüfen",
+	"option-webm": "WebM bevorzugen",
+	"option-sizes": "Video Dateigröße ermitteln",
 	"option-format": "Titel Format",
 
-	"button-options": "einstellungen",
-	"button-options-close": "close",
-	"button-update": "Hier klicken um jetzt upzudaten",
+	"button-options": "Einstellungen",
+	"button-options-close": "Schließen",
+	"button-update": "Hier klicken, um YouTube Video Download zu aktualisieren",
 
-	"error-no-downloads": "Keine Download Formate vorhanden"
+	"error-no-downloads": "Keine herunterladbaren Streams gefunden"
 }
