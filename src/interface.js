@@ -195,7 +195,7 @@ var Interface = (function() {
 	// formatTitle(stream) - Format stream information for the tooltips
 	function formatTitle(stream)
 	{
-		return "Format " + stream.itag + ", " + (stream.vcodec ? stream.vcodec + "/" + stream.acodec : "") +
+		return T("format-tip") + stream.itag + ", " + (stream.vcodec ? stream.vcodec + "/" + stream.acodec : "") +
 			(stream.vprofile ? " (" + stream.vprofile + (stream.level ? "@L" + stream.level.toFixed(1) : "") + ")" : "");
 	}
 
