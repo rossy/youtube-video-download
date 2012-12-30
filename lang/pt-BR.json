@@ -1,26 +1,29 @@
 {
-	"language": "Portuguese (Brasil)",
+	"language": "Portuguese (Brazil)",
 
 	"credit0-name": "Gandalf",
 	"credit0-url": "http://userscripts.org/users/73303",
 
-	"download-button-tip": "Salvar vídeo para o disco",
-	"download-button-text": "Baixar",
-	"menu-button-tip": "Escolha um formato para baixar",
+	"download-button-tip": "Salvar vídeo",
+	"download-button-text": "Salvar",
+	"menu-button-tip": "Escolha outros formatos",
 
 	"group-options": "Opções",
 	"group-high-definition": "Definição alta",
 	"group-standard-definition": "Definição padrão",
-	"group-mobile": "Mobile",
-	"group-unknown": "Formato desconhecido",
-	"group-update": "Uma nova versão do Youtube Video Download está disponível",
+	"group-mobile": "Definição celular",
+	"group-unknown": "Formatos desconhecidos",
+	"group-update": "Nova versão disponível",
 
-	"option-check": "Procurar por atualizações",
-	"option-format": "Formato do título",
+	"option-check": "Procurar atualizações",
+	"option-webm": "WebM como formato padrão",
+	"option-restrict": "Mostrar apenas formato padrão",
+	"option-sizes": "Mostrar tamanho do arquivo",
+	"option-format": "Formato do Título",
 
 	"button-options": "opções",
-	"button-options-close": "close",
-	"button-update": "Clique aqui para atualizar agora",
+	"button-options-close": "fechar",
+	"button-update": "Clique aqui para atualizar YouTube Video Download",
 
-	"error-no-downloads": "Nenhum formato disponível para baixar"
+	"error-no-downloads": "Nenhum formato disponível para salvar"
 }
