@@ -3,7 +3,11 @@
 
 var fs = require("fs");
 
-var langFiles = fs.readdirSync(".").filter(function(a) { return /\.json$/.test(a); });
+var langFiles =
+	fs
+		.readdirSync("./lang")
+		.filter(function(a) { return /\.json$/.test(a); })
+		.map(function(a) { return "./lang/" + a; });
 
 console.log("<table>");
 console.log("<tr><th>Language</th><th>Translator</th><th>Language</th><th>Translator</th></tr>");
