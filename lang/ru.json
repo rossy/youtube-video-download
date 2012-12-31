@@ -19,14 +19,14 @@
 	"group-update": "Доступна новая версия YouTube Video Download",
 
 	"option-check": "Проверять обновления",
-	"option-webm": "Предпочтение WebM",
-	"option-sizes": "Получить размер видеофайла",
+	"option-webm": "Предпочитать WebM",
+	"option-sizes": "Получать размер видеофайла",
 	"option-format": "Шаблон имени файла:",
 	"option-itags": "Любимые форматы:",
 
 	"button-options": "Настройки",
 	"button-options-close": "Скрыть",
-	"button-update": "Нажмите тут для обновления",
+	"button-update": "Нажмите здесь для обновления",
 
-	"error-no-downloads": "Нет допустимых форматов для загрузки"
+	"error-no-downloads": "Нет доступных форматов для загрузки"
 }
