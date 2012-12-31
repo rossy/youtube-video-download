@@ -14,8 +14,8 @@
 // ==/UserScript==
 
 /*
- * This file is part of YouTube Video Download, which has been placed under the
- * MIT/X11 license.
+ * This file is a part of YouTube Video Download, which has been placed under
+ * the MIT/Expat license.
  *
  * Copyright (c) 2012, James Ross-Gowan and YouTube Video Download
  * contributors.

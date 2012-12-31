@@ -16,7 +16,7 @@
 
 /*
  * This file is a part of YouTube Video Download, which has been placed under
- * the MIT/X11 license.
+ * the MIT/Expat license.
  *
  * Copyright (c) 2012, James Ross-Gowan and other contributors.
  *

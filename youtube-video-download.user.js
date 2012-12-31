@@ -14,8 +14,8 @@
 // ==/UserScript==
 
 /*
- * This file is part of YouTube Video Download, which has been placed under the
- * MIT/X11 license.
+ * This file is a part of YouTube Video Download, which has been placed under
+ * the MIT/Expat license.
  *
  * Copyright (c) 2012, James Ross-Gowan and YouTube Video Download
  * contributors.
@@ -90,7 +90,7 @@
  function script()
  {
 
-  var version = "4.1", hash = "7a6a77c";
+  var version = "4.1", hash = "6f7edb9";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
