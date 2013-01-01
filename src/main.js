@@ -1,7 +1,6 @@
 #import "videoinfo.js"
 #import "interface.js"
 #import "streammap.js"
-#import "styles.css.js"
 
 #ifdef USO
 #import "update-uso.js"
@@ -28,7 +27,6 @@ function main()
 
 	VideoInfo.init();
 	Interface.init();
-	Styles.injectStyle(Styles.styles);
 
 	Interface.update(StreamMap.getStreams());
 

@@ -579,6 +579,22 @@ var StreamMap = (function() {
  }
  return self;
 })();
+var Styles = (function() {
+ var self = {
+  injectStyle: injectStyle,
+ };
+ // injectStyle(text) - Add a stylesheet to the page's head
+ function injectStyle(text)
+ {
+  var style = document.createElement("style");
+  style.setAttribute("type", "text/css");
+  style.textContent = text;
+  document.head.appendChild(style);
+ }
+ return self;
+})();
+Styles.styles = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-right: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-right: 0px;}#watch7-secondary-actions .yt-uix-button {margin-left: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-left: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-right: -1px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;right: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;left: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: right;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 0px 8px 55px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-left: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-left: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
+Styles["styles-rtl"] = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-left: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-left: 0px;}#watch7-secondary-actions .yt-uix-button {margin-right: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-right: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-left: -1px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;left: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;right: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: left;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 55px 8px 0px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-right: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-right: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;direction: ltr;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
 // Interface - Handles the user interface for the watch page
 var Interface = (function() {
  var self = {
@@ -586,7 +602,8 @@ var Interface = (function() {
   update: update,
   notifyUpdate: notifyUpdate,
  };
- var groups,
+ var rtl = document.body.getAttribute("dir") == "rtl",
+     groups,
      lastStreams,
      links = [],
      nextId = 0;
@@ -758,7 +775,10 @@ var Interface = (function() {
   mainLink.setAttribute("title", formatTitle(streams[0]));
   links.push({ stream: streams[0], anchor: mainLink });
   updateLink(StreamMap.getURL(streams[0]), "ytd-" + mainId);
-  mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
+  if (rtl)
+   mainLink.style.marginLeft = (streams.length - 1) * 64 + "px";
+  else
+   mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
   mainLink.addEventListener("contextmenu", function(e) {
    // Prevent right-click closing the menu in Chrome
    e.stopPropagation();
@@ -783,7 +803,10 @@ var Interface = (function() {
     links.push({ stream: streams[i], anchor: subLink });
     updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
    }
-   subLink.style.right = (streams.length - i - 1) * 64 + "px";
+   if (rtl)
+    subLink.style.left = (streams.length - i - 1) * 64 + "px";
+   else
+    subLink.style.right = (streams.length - i - 1) * 64 + "px";
    subLink.addEventListener("contextmenu", function(e) {
     // Prevent right-click closing the menu in Chrome
     e.stopPropagation();
@@ -896,6 +919,11 @@ var Interface = (function() {
       watchSentimentActions = document.getElementById("watch7-sentiment-actions"),
       watchLike = document.getElementById("watch-like"),
       watchDislike = document.getElementById("watch-dislike");
+  // Inject stylesheet(s)
+  if (rtl)
+   Styles.injectStyle(Styles["styles-rtl"]);
+  else
+   Styles.injectStyle(Styles["styles"]);
   groups = [
    { title: T("group-high-definition"), predicate: function(stream) {
     return stream.height && stream.container && stream.container != "3GPP" && stream.height > 576;
@@ -941,21 +969,6 @@ var Interface = (function() {
  }
  return self;
 })();
-var Styles = (function() {
- var self = {
-  injectStyle: injectStyle,
- };
- // injectStyle(text) - Add a stylesheet to the page's head
- function injectStyle(text)
- {
-  var style = document.createElement("style");
-  style.setAttribute("type", "text/css");
-  style.textContent = text;
-  document.head.appendChild(style);
- }
- return self;
-})();
-Styles.styles = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-right: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-right: 0px;}#watch7-secondary-actions .yt-uix-button {margin-left: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-left: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-right: -1px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;right: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;left: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: right;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 0px 8px 55px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-left: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-left: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
 // Update - Check Userscripts.org for updates
 var Update = (function() {
  var self = {
@@ -1000,7 +1013,6 @@ function main()
   localStorage["ytd-itags"] = "37, 22, 18";
  VideoInfo.init();
  Interface.init();
- Styles.injectStyle(Styles.styles);
  Interface.update(StreamMap.getStreams());
  if ((String(localStorage["ytd-check-updates"]) == "true"))
   if (localStorage["ytd-current-version"] != version ||
