@@ -595,7 +595,7 @@ var Styles = (function() {
  return self;
 })();
 Styles.styles = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-right: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-right: 0px;}#watch7-secondary-actions .yt-uix-button {margin-left: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-left: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-right: -1px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;right: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;left: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: right;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 0px 8px 55px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-left: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-left: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
-Styles["styles-rtl"] = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-left: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-left: 0px;}#watch7-secondary-actions .yt-uix-button {margin-right: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-right: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-left: -1px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;left: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;right: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: left;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 55px 8px 0px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-right: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-right: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;direction: ltr;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
+Styles["styles-rtl"] = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-left: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-left: 0px;}#watch7-secondary-actions .yt-uix-button {margin-right: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-right: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-left: -1px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;left: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;right: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: left;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 55px 8px 0px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-right: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-right: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
 // Interface - Handles the user interface for the watch page
 var Interface = (function() {
  var self = {
@@ -654,7 +654,7 @@ var Interface = (function() {
   return label;
  }
  // createTextbox(text) - Creates a YouTube uix textbox
- function createTextbox(labelText, text, callback)
+ function createTextbox(labelText, text, ltr, callback)
  {
   var label = document.createElement("label"),
       container = document.createElement("div"),
@@ -662,6 +662,8 @@ var Interface = (function() {
   container.className = "ytd-textbox-container";
   box.className = "yt-uix-form-input-text";
   box.value = text;
+  if (rtl && ltr)
+   box.setAttribute("dir", "ltr");
   box.addEventListener("input", function() {
    callback(box.value);
   });
@@ -693,12 +695,12 @@ var Interface = (function() {
     localStorage["ytd-get-sizes"] = checked;
    }));
   // Title format
-  elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], function (text) {
+  elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], true, function (text) {
    localStorage["ytd-title-format"] = text;
    updateLinks();
   }));
   // Favourite itags
-  elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], function (text) {
+  elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], false, function (text) {
    localStorage["ytd-itags"] = text.split(",").map(Number).filter(identity).map(Math.floor).join(", ");
    update(lastStreams);
   }));

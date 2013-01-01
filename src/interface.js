@@ -81,7 +81,7 @@ var Interface = (function() {
 	}
 
 	// createTextbox(text) - Creates a YouTube uix textbox
-	function createTextbox(labelText, text, callback)
+	function createTextbox(labelText, text, ltr, callback)
 	{
 		var label = document.createElement("label"),
 		    container = document.createElement("div"),
@@ -91,6 +91,8 @@ var Interface = (function() {
 
 		box.className = "yt-uix-form-input-text";
 		box.value = text;
+		if (rtl && ltr)
+			box.setAttribute("dir", "ltr");
 		box.addEventListener("input", function() {
 			callback(box.value);
 		});
@@ -130,13 +132,13 @@ var Interface = (function() {
 			}));
 
 		// Title format
-		elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], function (text) {
+		elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], true, function (text) {
 			localStorage["ytd-title-format"] = text;
 			updateLinks();
 		}));
 
 		// Favourite itags
-		elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], function (text) {
+		elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], false, function (text) {
 			localStorage["ytd-itags"] = text.split(",").map(Number).filter(identity).map(Math.floor).join(", ");
 			update(lastStreams);
 		}));
