@@ -1,0 +1,30 @@
+{
+	"language": "Indonesian",
+
+	"credit0-name": "Bayu Aditya H",
+	"credit0-url": "http://ba.yuah.web.id/?asal=gmytdlfl",
+
+	"download-button-tip": "Unduh video ini",
+	"download-button-text": "Unduh",
+	"menu-button-tip": "Pilih dari format tambahan",
+	"format-tip": "Format ",
+
+	"group-options": "Opsi",
+	"group-high-definition": "Definisi tinggi",
+	"group-standard-definition": "Definisi standar",
+	"group-mobile": "Perangkat bergerak",
+	"group-unknown": "Format tak dikenal",
+	"group-update": "Perbaruan tersedia",
+
+	"option-check": "Periksa pembaruan",
+	"option-webm": "Utamakan WebM",
+	"option-sizes": "Dapatkan ukuran video",
+	"option-format": "Format judul",
+	"option-itags": "Format kesukaan",
+
+	"button-options": "opsi",
+	"button-options-close": "tutup",
+	"button-update": "Klik di sini untuk memperbarui YouTube Video Download",
+
+	"error-no-downloads": "Tidak ada aliran yang dapat diunduh ditemukan"
+}
