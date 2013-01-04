@@ -17,7 +17,7 @@
  * This file is a part of YouTube Video Download, which has been placed under
  * the MIT/Expat license.
  *
- * Copyright (c) 2012, James Ross-Gowan and YouTube Video Download
+ * Copyright (c) 2012-2013, James Ross-Gowan and YouTube Video Download
  * contributors.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
