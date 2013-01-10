@@ -1,6 +1,9 @@
 #import "languages.js"
 #import "streammap.js"
 
+#import "styles.css.js"
+#import "styles-rtl.css.js"
+
 // Interface - Handles the user interface for the watch page
 var Interface = (function() {
 	var self = {
@@ -9,7 +12,8 @@ var Interface = (function() {
 		notifyUpdate: notifyUpdate,
 	};
 
-	var groups,
+	var rtl = document.body.getAttribute("dir") == "rtl",
+	    groups,
 	    lastStreams,
 	    links = [],
 	    nextId = 0;
@@ -77,7 +81,7 @@ var Interface = (function() {
 	}
 
 	// createTextbox(text) - Creates a YouTube uix textbox
-	function createTextbox(labelText, text, callback)
+	function createTextbox(labelText, text, ltr, callback)
 	{
 		var label = document.createElement("label"),
 		    container = document.createElement("div"),
@@ -87,6 +91,8 @@ var Interface = (function() {
 
 		box.className = "yt-uix-form-input-text";
 		box.value = text;
+		if (rtl && ltr)
+			box.setAttribute("dir", "ltr");
 		box.addEventListener("input", function() {
 			callback(box.value);
 		});
@@ -126,13 +132,13 @@ var Interface = (function() {
 			}));
 
 		// Title format
-		elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], function (text) {
+		elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], true, function (text) {
 			localStorage["ytd-title-format"] = text;
 			updateLinks();
 		}));
 
 		// Favourite itags
-		elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], function (text) {
+		elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], false, function (text) {
 			localStorage["ytd-itags"] = text.split(",").map(Number).filter(identity).map(Math.floor).join(", ");
 			update(lastStreams);
 		}));
@@ -234,7 +240,10 @@ var Interface = (function() {
 		links.push({ stream: streams[0], anchor: mainLink });
 		updateLink(StreamMap.getURL(streams[0]), "ytd-" + mainId);
 
-		mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
+		if (rtl)
+			mainLink.style.marginLeft = (streams.length - 1) * 64 + "px";
+		else
+			mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
 
 		mainLink.addEventListener("contextmenu", function(e) {
 			// Prevent right-click closing the menu in Chrome
@@ -265,7 +274,10 @@ var Interface = (function() {
 				updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
 			}
 
-			subLink.style.right = (streams.length - i - 1) * 64 + "px";
+			if (rtl)
+				subLink.style.left = (streams.length - i - 1) * 64 + "px";
+			else
+				subLink.style.right = (streams.length - i - 1) * 64 + "px";
 
 			subLink.addEventListener("contextmenu", function(e) {
 				// Prevent right-click closing the menu in Chrome
@@ -412,6 +424,12 @@ var Interface = (function() {
 		    watchSentimentActions = document.getElementById("watch7-sentiment-actions"),
 		    watchLike = document.getElementById("watch-like"),
 		    watchDislike = document.getElementById("watch-dislike");
+
+		// Inject stylesheet(s)
+		if (rtl)
+			Styles.injectStyle(Styles["styles-rtl"]);
+		else
+			Styles.injectStyle(Styles["styles"]);
 
 		groups = [
 			{ title: T("group-high-definition"), predicate: function(stream) {

@@ -10,11 +10,11 @@ all: youtube-video-download.user.js youtube-video-download-uso.user.js
 
 -include *.d
 
-youtube-video-download.user.js: src/youtube-video-download.js languages.js styles.css.js
+youtube-video-download.user.js: src/youtube-video-download.js languages.js styles.css.js styles-rtl.css.js
 	$(SED) "s/VERSION/$(VERSION)/" $< | $(CPP) $(CPPFLAGS) -MT $@ -o $@
 	./calculate-hash.sh $@
 
-youtube-video-download-uso.user.js: src/youtube-video-download-uso.js languages.js styles.css.js
+youtube-video-download-uso.user.js: src/youtube-video-download-uso.js languages.js styles.css.js styles-rtl.css.js
 	$(SED) "s/VERSION/$(VERSION)/" $< | $(CPP) $(CPPFLAGS) -MT $@ -o $@
 
 languages.js: lang/*.json
@@ -24,5 +24,5 @@ languages.js: lang/*.json
 	./build-style.sh $< > $@
 
 clean:
-	-$(RM) languages.js styles.css.js youtube-video-download.user.js youtube-video-download-uso.user.js *.d youtube-video-download.user.js.sha1sum
+	-$(RM) languages.js styles.css.js styles-rtl.css.js youtube-video-download.user.js youtube-video-download-uso.user.js *.d youtube-video-download.user.js.sha1sum
 .PHONY: clean

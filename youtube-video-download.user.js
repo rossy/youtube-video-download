@@ -90,7 +90,7 @@
  function script()
  {
 
-  var version = "4.1", hash = "0a776e5";
+  var version = "4.1", hash = "c780a93";
 // -- Object tools --
 // has(obj, key) - Does the object contain the given key?
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
@@ -349,6 +349,7 @@ var VideoInfo = (function() {
  return self;
 })();
 var Languages = {
+ "ar": {"language": "Arabic","credit0-name": "ADMIRAL911","credit0-url": "http://userscripts.org/users/500279","download-button-tip": "تحميل هذا الفيديو","download-button-text": "تحميل","menu-button-tip": "اختر الصيغة","format-tip": "الصيغة ","group-options": "الخيارات","group-high-definition": "جودة عالية","group-standard-definition": "جودة متوسطة","group-mobile": "للجوال","group-unknown": "صيغة غير معروفه","group-update": "يوجد تحديثات","option-check": "التأكد من وجود تحديثات","option-webm": "افضل WebM","option-sizes": "الحصول على حجم ملف الفيديو","option-format": "صيغة الفيديو","option-itags": "الصيغ المفضلة","button-options": "خيارات","button-options-close": "اغلاق","button-update": "اضغط هنا لتحديث YouTube Video Download","error-no-downloads": "لايوجد محتوى قابل للتحميل"},
  "cs": {"language": "Czech","credit0-name": "janwatzek","credit0-url": "http://userscripts.org/users/janwatzek","download-button-tip": "Uložit video na pevný disk","download-button-text": "Stáhnout","menu-button-tip": "Vyberte formát ke stažení","group-options": "Nastavení","group-high-definition": "Vysoké rozlišení","group-standard-definition": "Standardní rozlišení","group-mobile": "Mobile","group-unknown": "Neznámý formát","group-update": "Nová verze skriptu YouTube Video Download je dostupná ke stažení!","option-check": "Kontrolovat aktualizace","option-format": "Formát názvu videa","button-options": "nastavení","button-options-close": "close","button-update": "Klikněte sem pro aktualizaci","error-no-downloads": "Žádné formáty nejsou dostupné ke stažení"},
  "de": {"language": "German","credit0-name": "QuHno","credit0-url": "http://userscripts.org/users/348658","download-button-tip": "Video auf der Festplatte speichern","download-button-text": "Download","menu-button-tip": "Weitere Formate wählen","group-options": "Einstellungen","group-high-definition": "Hohe Auflösung","group-standard-definition": "Standard Auflösung","group-mobile": "Mobil","group-unknown": "Unbekanntes Format","group-update": "Eine neue Version steht zur Verfügung","option-check": "Auf neue Version überprüfen","option-webm": "WebM bevorzugen","option-sizes": "Video Dateigröße ermitteln","option-format": "Titel Format","button-options": "Einstellungen","button-options-close": "Schließen","button-update": "Hier klicken, um YouTube Video Download zu aktualisieren","error-no-downloads": "Keine herunterladbaren Streams gefunden"},
  "en": {"language": "English","download-button-tip": "Download this video","download-button-text": "Download","menu-button-tip": "Choose from additional formats","format-tip": "Format ","group-options": "Options","group-high-definition": "High definition","group-standard-definition": "Standard definition","group-mobile": "Mobile","group-unknown": "Unknown formats","group-update": "An update is available","option-check": "Check for updates","option-webm": "Prefer WebM","option-sizes": "Get video filesize","option-format": "Title format","option-itags": "Favourite formats","button-options": "options","button-options-close": "close","button-update": "Click here to update YouTube Video Download","error-no-downloads": "No downloadable streams found"},
@@ -560,6 +561,22 @@ var StreamMap = (function() {
  }
  return self;
 })();
+var Styles = (function() {
+ var self = {
+  injectStyle: injectStyle,
+ };
+ // injectStyle(text) - Add a stylesheet to the page's head
+ function injectStyle(text)
+ {
+  var style = document.createElement("style");
+  style.setAttribute("type", "text/css");
+  style.textContent = text;
+  document.head.appendChild(style);
+ }
+ return self;
+})();
+Styles.styles = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-right: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-right: 0px;}#watch7-secondary-actions .yt-uix-button {margin-left: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-left: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-right: -1px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;right: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;left: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: right;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 0px 8px 55px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-left: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-left: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
+Styles["styles-rtl"] = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-left: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-left: 0px;}#watch7-secondary-actions .yt-uix-button {margin-right: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-right: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-left: -1px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;left: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;right: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: left;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 55px 8px 0px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-right: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-right: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
 // Interface - Handles the user interface for the watch page
 var Interface = (function() {
  var self = {
@@ -567,7 +584,8 @@ var Interface = (function() {
   update: update,
   notifyUpdate: notifyUpdate,
  };
- var groups,
+ var rtl = document.body.getAttribute("dir") == "rtl",
+     groups,
      lastStreams,
      links = [],
      nextId = 0;
@@ -617,7 +635,7 @@ var Interface = (function() {
   return label;
  }
  // createTextbox(text) - Creates a YouTube uix textbox
- function createTextbox(labelText, text, callback)
+ function createTextbox(labelText, text, ltr, callback)
  {
   var label = document.createElement("label"),
       container = document.createElement("div"),
@@ -625,6 +643,8 @@ var Interface = (function() {
   container.className = "ytd-textbox-container";
   box.className = "yt-uix-form-input-text";
   box.value = text;
+  if (rtl && ltr)
+   box.setAttribute("dir", "ltr");
   box.addEventListener("input", function() {
    callback(box.value);
   });
@@ -656,12 +676,12 @@ var Interface = (function() {
     localStorage["ytd-get-sizes"] = checked;
    }));
   // Title format
-  elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], function (text) {
+  elem.appendChild(createTextbox(T("option-format"), localStorage["ytd-title-format"], true, function (text) {
    localStorage["ytd-title-format"] = text;
    updateLinks();
   }));
   // Favourite itags
-  elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], function (text) {
+  elem.appendChild(createTextbox(T("option-itags"), localStorage["ytd-itags"], false, function (text) {
    localStorage["ytd-itags"] = text.split(",").map(Number).filter(identity).map(Math.floor).join(", ");
    update(lastStreams);
   }));
@@ -739,7 +759,10 @@ var Interface = (function() {
   mainLink.setAttribute("title", formatTitle(streams[0]));
   links.push({ stream: streams[0], anchor: mainLink });
   updateLink(StreamMap.getURL(streams[0]), "ytd-" + mainId);
-  mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
+  if (rtl)
+   mainLink.style.marginLeft = (streams.length - 1) * 64 + "px";
+  else
+   mainLink.style.marginRight = (streams.length - 1) * 64 + "px";
   mainLink.addEventListener("contextmenu", function(e) {
    // Prevent right-click closing the menu in Chrome
    e.stopPropagation();
@@ -764,7 +787,10 @@ var Interface = (function() {
     links.push({ stream: streams[i], anchor: subLink });
     updateLink(StreamMap.getURL(streams[i]), "ytd-" + subId);
    }
-   subLink.style.right = (streams.length - i - 1) * 64 + "px";
+   if (rtl)
+    subLink.style.left = (streams.length - i - 1) * 64 + "px";
+   else
+    subLink.style.right = (streams.length - i - 1) * 64 + "px";
    subLink.addEventListener("contextmenu", function(e) {
     // Prevent right-click closing the menu in Chrome
     e.stopPropagation();
@@ -877,6 +903,11 @@ var Interface = (function() {
       watchSentimentActions = document.getElementById("watch7-sentiment-actions"),
       watchLike = document.getElementById("watch-like"),
       watchDislike = document.getElementById("watch-dislike");
+  // Inject stylesheet(s)
+  if (rtl)
+   Styles.injectStyle(Styles["styles-rtl"]);
+  else
+   Styles.injectStyle(Styles["styles"]);
   groups = [
    { title: T("group-high-definition"), predicate: function(stream) {
     return stream.height && stream.container && stream.container != "3GPP" && stream.height > 576;
@@ -922,21 +953,6 @@ var Interface = (function() {
  }
  return self;
 })();
-var Styles = (function() {
- var self = {
-  injectStyle: injectStyle,
- };
- // injectStyle(text) - Add a stylesheet to the page's head
- function injectStyle(text)
- {
-  var style = document.createElement("style");
-  style.setAttribute("type", "text/css");
-  style.textContent = text;
-  document.head.appendChild(style);
- }
- return self;
-})();
-Styles.styles = "/* Download buttons */#watch7-sentiment-actions .yt-uix-button {margin-right: 2px;}#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {margin-right: 0px;}#watch7-secondary-actions .yt-uix-button {margin-left: 7px;}#watch7-secondary-actions > span:first-child > .yt-uix-button:first-child, #watch7-secondary-actions > .yt-uix-button:first-child {margin-left: 0px;}#watch7-sentiment-actions #ytd-dl-button {margin-right: -1px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button {border-top-left-radius: 0px;border-bottom-left-radius: 0px;}#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {margin: 0px;}/* Menu */#ytd-menu {font-size: 12px;box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);max-height: 100%;overflow-x: hidden;}#ytd-options-button {position: absolute;right: 8px;top: 8px;}.ytd-header {padding: 2px 13px;font-weight: bold;padding-top: 5px;border-bottom: 1px solid #999;}/* Menu items */#ytd-menu .ytd-item-group {position: relative;}#ytd-menu .ytd-item-group:hover {background-color: #777;}#ytd-menu .ytd-item-group:hover .yt-uix-button-menu-item {color: #fff;}#ytd-menu .ytd-item-group .ytd-item-size {position: absolute;left: 0px;top: 0px;width: 55px;padding: 8px 0px;text-align: right;color: inherit;}#ytd-menu .ytd-item-group .ytd-item-main {display: block;padding: 8px 0px 8px 55px;}#ytd-menu .ytd-item-group .ytd-item-sub {display: block;position: absolute;top: 0px;width: 53px;border-left: 1px solid #ddd;padding: 8px 5px;}#ytd-menu .ytd-item-group:hover .ytd-item-sub {border-left: 1px solid #666;}#ytd-menu .ytd-item-update {padding: 8px 20px;}/* uix checkboxes */.ytd-checkbox-container {margin: 6px 6px 6px 13px;}.ytd-checkbox-label {display: block;padding-right: 13px;}.ytd-textbox-container {margin: 6px 13px;}/* uix textboxes */.ytd-textbox-container .yt-uix-form-input-text {display: block;box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;}.ytd-textbox-label {display: block;padding: 3px 6px;}";
 // Update - Check GitHub for updates
 var Update = (function() {
  var self = {
@@ -1009,7 +1025,6 @@ function main()
   localStorage["ytd-itags"] = "37, 22, 18";
  VideoInfo.init();
  Interface.init();
- Styles.injectStyle(Styles.styles);
  Interface.update(StreamMap.getStreams());
  if ((String(localStorage["ytd-check-updates"]) == "true"))
   if (localStorage["ytd-current-sha1sum"] != hash ||

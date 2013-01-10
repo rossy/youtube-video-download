@@ -1,0 +1,30 @@
+{
+	"language": "Arabic",
+
+	"credit0-name": "ADMIRAL911",
+	"credit0-url": "http://userscripts.org/users/500279",
+
+	"download-button-tip": "تحميل هذا الفيديو",
+	"download-button-text": "تحميل",
+	"menu-button-tip": "اختر الصيغة",
+	"format-tip": "الصيغة ",
+
+	"group-options": "الخيارات",
+	"group-high-definition": "جودة عالية",
+	"group-standard-definition": "جودة متوسطة",
+	"group-mobile": "للجوال",
+	"group-unknown": "صيغة غير معروفه",
+	"group-update": "يوجد تحديثات",
+
+	"option-check": "التأكد من وجود تحديثات",
+	"option-webm": "افضل WebM",
+	"option-sizes": "الحصول على حجم ملف الفيديو",
+	"option-format": "صيغة الفيديو",
+	"option-itags": "الصيغ المفضلة",
+
+	"button-options": "خيارات",
+	"button-options-close": "اغلاق",
+	"button-update": "اضغط هنا لتحديث YouTube Video Download",
+
+	"error-no-downloads": "لايوجد محتوى قابل للتحميل"
+}
