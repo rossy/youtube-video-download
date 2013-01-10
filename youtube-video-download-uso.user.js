@@ -694,7 +694,7 @@ var Interface = (function() {
   var link = document.createElement("a"),
       elem = document.createElement("button");
   link.setAttribute("href", "javascript:;");
-  elem.className = "start yt-uix-button yt-uix-button-hh-text yt-uix-tooltip";
+  elem.className = "start yt-uix-button yt-uix-button-text yt-uix-tooltip";
   elem.setAttribute("id", "ytd-dl-button");
   elem.setAttribute("title", T("download-button-tip"));
   elem.setAttribute("type", "button");
@@ -707,7 +707,7 @@ var Interface = (function() {
  function createMenuButton()
  {
   var elem = document.createElement("button");
-  elem.className = "end yt-uix-button yt-uix-button-hh-text yt-uix-button-empty yt-uix-tooltip";
+  elem.className = "end yt-uix-button yt-uix-button-text yt-uix-button-empty yt-uix-tooltip";
   elem.setAttribute("id", "ytd-menu-button");
   elem.setAttribute("title", T("menu-button-tip"));
   elem.setAttribute("type", "button");
