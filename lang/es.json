@@ -1,0 +1,30 @@
+{
+	"language": "Spanish",
+
+	"credit0-name": "vorbote",
+	"credit0-url": "http://userscripts.org/users/264443",
+
+	"download-button-tip": "Descargar este video",
+	"download-button-text": "Descargar",
+	"menu-button-tip": "Escoja formatos adicionales",
+	"format-tip": "Formato ",
+
+	"group-options": "Opciones",
+	"group-high-definition": "Alta definición",
+	"group-standard-definition": "Definición estándar",
+	"group-mobile": "Móvil",
+	"group-unknown": "Formatos desconocidos",
+	"group-update": "Hay una actualización disponible",
+
+	"option-check": "Buscar actualizaciones",
+	"option-webm": "Preferir WebM",
+	"option-sizes": "Obtener el tamaño del video",
+	"option-format": "Formato del título",
+	"option-itags": "Formatos favoritos",
+
+	"button-options": "opciones",
+	"button-options-close": "cerrar",
+	"button-update": "Oprima aquí para actualizar YouTube Video Download",
+
+	"error-no-downloads": "No se encontraron archivos descargables"
+}
