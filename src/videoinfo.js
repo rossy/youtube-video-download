@@ -11,7 +11,7 @@ var VideoInfo = (function() {
 	{
 		self.title = Try.all(
 			function() {
-				return yt.playerConfig.args.title;
+				return ytplayer.config.args.title;
 			},
 			function() {
 				return document.querySelector("meta[name=title]").getAttribute("content");
@@ -53,7 +53,7 @@ var VideoInfo = (function() {
 
 		self.seconds = Try.all(
 			function() {
-				return Math.floor(Number(yt.playerConfig.args.length_seconds));
+				return Math.floor(Number(ytplayer.config.args.length_seconds));
 			}
 		);
 

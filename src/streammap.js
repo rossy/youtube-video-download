@@ -165,7 +165,7 @@ var StreamMap = (function() {
 	{
 		return Try.all(
 			function() {
-				return yt.playerConfig.args;
+				return ytplayer.config.args;
 			},
 			function() {
 				return decodeQuery(document.getElementById("movie_player").getAttribute("flashvars"));
