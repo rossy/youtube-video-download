@@ -41,7 +41,8 @@ var VideoInfo = (function() {
 
 		self.date = Try.all(
 			function() {
-				return new Date(document.getElementById("eow-date").textContent);
+				var dateRegex = /.*([A-Z][a-z]{2} [1-3]?[0-9], 20[0-9]{2}).*/
+				return new Date(document.getElementById("watch-uploader-info").textContent.match(dateRegex)[1]);
 			}
 		);
 
