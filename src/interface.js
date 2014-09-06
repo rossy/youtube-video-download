@@ -421,7 +421,7 @@ var Interface = (function() {
 	{
 		// Get the flag button from the actions menu
 		var buttonGroup = document.createElement("span"),
-		    watchSentimentActions = document.getElementById("watch7-sentiment-actions"),
+		    watchSentimentActions = document.getElementById("watch8-sentiment-actions"),
 		    watchLike = document.getElementById("watch-like"),
 		    watchDislike = document.getElementById("watch-dislike");
 

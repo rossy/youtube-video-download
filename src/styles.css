@@ -1,10 +1,10 @@
 /* Download buttons */
 
-#watch7-sentiment-actions .yt-uix-button {
+#watch8-sentiment-actions .yt-uix-button {
 	margin-right: 2px;
 }
 
-#watch7-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch7-sentiment-actions > button:last-child {
+#watch8-sentiment-actions > .yt-uix-button-group:last-child > button:last-child, #watch8-sentiment-actions > button:last-child {
 	margin-right: 0px;
 }
 
@@ -16,18 +16,18 @@
 	margin-left: 0px;
 }
 
-#watch7-sentiment-actions #ytd-dl-button {
+#watch8-sentiment-actions #ytd-dl-button {
 	margin-right: -1px;
 	border-top-right-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
 
-#watch7-sentiment-actions #ytd-menu-button {
+#watch8-sentiment-actions #ytd-menu-button {
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
 }
 
-#watch7-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {
+#watch8-sentiment-actions #ytd-menu-button .yt-uix-button-arrow {
 	margin: 0px;
 }
 
