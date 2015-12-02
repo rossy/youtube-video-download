@@ -7,6 +7,7 @@
 	"download-button-tip": "儲存到硬碟",
 	"download-button-text": "下載",
 	"menu-button-tip": "選擇要下載的格式",
+	"format-tip": "格式 ",
 
 	"group-options": "選項",
 	"group-high-definition": "HD",
@@ -16,7 +17,10 @@
 	"group-update": "有新的YouTube Video Download可供更新",
 
 	"option-check": "檢查更新",
+	"option-webm": "偏好使用WebM",
+	"option-sizes": "取得檔案大小",
 	"option-format": "標題格式",
+	"option-itags": "格式偏好",
 
 	"button-options": "選項",
 	"button-options-close": "close",
@@ -24,3 +28,4 @@
 
 	"error-no-downloads": "沒有可用的下載格式"
 }
+	
